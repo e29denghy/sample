@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>@yield('title', 'Sample App') - 学习Laravel框架</title>
+    <title>@yield('title', 'BLOG') - 程序员的个人修养</title>
     <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
