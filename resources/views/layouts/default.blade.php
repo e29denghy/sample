@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'BLOG') - 程序员的个人修养</title>
-    <link rel="stylesheet" href="/css/app.css">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
   <body>
     @include('layouts._header')
@@ -14,6 +15,5 @@
         @include('layouts._footer')
       </div>
     </div>
-    <script src="/js/app.js"></script>
   </body>
 </html>

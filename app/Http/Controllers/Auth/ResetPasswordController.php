@@ -3,38 +3,49 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\View\View;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends Controller implements HasMiddleware
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
-
-    use ResetsPasswords;
-
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    //protected $redirectTo = '/home';
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('guest');
+        return ['guest'];
+    }
+
+    public function showResetForm(Request $request, string $token): View
+    {
+        return view('auth.passwords.reset', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
+    }
+
+    public function reset(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', 'min:6'],
+        ]);
+
+        $status = Password::reset($credentials, function ($user, $password): void {
+            $user->forceFill(['password' => Hash::make($password)])->save();
+            event(new PasswordReset($user));
+            Auth::login($user);
+        });
+
+        if ($status === Password::PASSWORD_RESET) {
+            return redirect('/')->with('status', __($status));
+        }
+
+        return back()->withInput($request->only('email'))
+            ->withErrors(['email' => __($status)]);
     }
 }

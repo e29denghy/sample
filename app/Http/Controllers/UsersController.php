@@ -2,118 +2,103 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
+use App\Mail\RegistrationConfirmation;
 use App\Models\User;
-use Auth;
-use Mail;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
-class UsersController extends Controller
+class UsersController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index', 'confirmEmail']
-        ]);
-
-        $this->middleware('guest', [
-            'only' => ['create']
-        ]);
+        return [
+            new Middleware('auth', except: ['show', 'create', 'store', 'index', 'confirmEmail']),
+            new Middleware('guest', only: ['create', 'store']),
+        ];
     }
 
-    public function index()
+    public function index(): View
     {
-        $users = User::paginate(10);
-        return view('users.index', compact('users'));
+        return view('users.index', ['users' => User::paginate(10)]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('users.create');
     }
 
-    public function show(User $user)
+    public function show(User $user): View
     {
         return view('users.show', compact('user'));
     }
 
-    public function confirmEmail($token)
+    public function confirmEmail(string $token): RedirectResponse
     {
         $user = User::where('activation_token', $token)->firstOrFail();
-
-        $user->activated = true;
-        $user->activation_token = null;
-        $user->save();
+        $user->forceFill([
+            'activated' => true,
+            'activation_token' => null,
+        ])->save();
 
         Auth::login($user);
-        session()->flash('success', '恭喜你，激活成功！');
-        return redirect()->route('users.show', [$user]);
+
+        return redirect()->route('users.show', $user)->with('success', '恭喜你，激活成功！');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required|max:50',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|confirmed|min:6'
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'confirmed', 'min:6'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
+        $user = User::create($data);
         $this->sendEmailConfirmationTo($user);
-        session()->flash('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
-        return redirect('/');
+
+        return redirect('/')->with('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
     }
 
-    protected function sendEmailConfirmationTo($user)
+    protected function sendEmailConfirmationTo(User $user): void
     {
-        $view = 'emails.confirm';
-        $data = compact('user');
-        $from = 'aufree@yousails.com';
-        $name = 'Aufree';
-        $to = $user->email;
-        $subject = "感谢注册 Sample 应用！请确认你的邮箱。";
-
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
-        });
+        Mail::to($user->email)->send(new RegistrationConfirmation($user));
     }
 
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         $this->authorize('update', $user);
+
         return view('users.edit', compact('user'));
     }
 
-    public function update(User $user, Request $request)
+    public function update(User $user, Request $request): RedirectResponse
     {
         $this->authorize('update', $user);
-        $this->validate($request, [
-            'name' => 'required|max:50',
-            'password' => 'nullable|confirmed|min:6'
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:50'],
+            'password' => ['nullable', 'confirmed', 'min:6'],
         ]);
 
-        $data = [];
-        $data['name'] = $request->name;
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
+        if (blank($data['password'] ?? null)) {
+            unset($data['password']);
         }
+
         $user->update($data);
 
-        session()->flash('success', '个人资料更新成功！');
-
-        return redirect()->route('users.show', $user->id);
+        return redirect()->route('users.show', $user)->with('success', '个人资料更新成功！');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         $this->authorize('destroy', $user);
         $user->delete();
-        session()->flash('success', '成功删除用户！');
-        return back();
+
+        return back()->with('success', '成功删除用户！');
     }
 }

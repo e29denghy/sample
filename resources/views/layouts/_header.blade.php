@@ -4,15 +4,15 @@
       <a href="/" id="logo">程序员的个人修养</a>
       <nav>
         <ul class="nav navbar-nav navbar-right">
-          @if (Auth::check())
+          @auth
             <li><a href="{{ route('users.index') }}">用户列表</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                {{ Auth::user()->name }} <b class="caret"></b>
+                {{ auth()->user()->name }} <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a></li>
-                <li><a href="{{ route('users.edit', Auth::user()->id) }}">编辑资料</a></li>
+                <li><a href="{{ route('users.show', auth()->id()) }}">个人中心</a></li>
+                <li><a href="{{ route('users.edit', auth()->id()) }}">编辑资料</a></li>
                 <li class="divider"></li>
                 <li>
                   <a id="logout" href="#">
@@ -28,7 +28,7 @@
           @else
             <li><a href="{{ route('help') }}">帮助</a></li>
             <li><a href="{{ route('login') }}">登录</a></li>
-          @endif
+          @endauth
         </ul>
       </nav>
     </div>
