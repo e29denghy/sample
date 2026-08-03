@@ -2,43 +2,46 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
-    public static function boot()
+    protected function casts(): array
     {
-        parent::boot();
+        return [
+            'activated' => 'boolean',
+            'is_admin' => 'boolean',
+            'password' => 'hashed',
+        ];
+    }
 
-        static::creating(function ($user) {
-            $user->activation_token = str_random(30);
+    protected static function booted(): void
+    {
+        static::creating(function (self $user): void {
+            $user->activation_token ??= Str::random(30);
         });
     }
 
-    public function gravatar($size = '100')
+    public function gravatar(string|int $size = 100): string
     {
-        $hash = md5(strtolower(trim($this->attributes['email'])));
-        return "http://www.gravatar.com/avatar/$hash?s=$size";
+        $hash = md5(strtolower(trim((string) $this->email)));
+
+        return "https://www.gravatar.com/avatar/{$hash}?s={$size}";
     }
 }
