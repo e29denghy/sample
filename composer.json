@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.5",
         "laravel/framework": "^13.8",
+        "league/commonmark": "^2.8",
         "laravel/tinker": "^3.0",
         "overtrue/laravel-wechat": "^8.0"
     },

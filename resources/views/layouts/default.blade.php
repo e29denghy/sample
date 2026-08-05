@@ -1,19 +1,2 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'BLOG') - 程序员的个人修养</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-  </head>
-  <body>
-    @include('layouts._header')
-
-    <div class="container">
-      <div class="col-md-offset-1 col-md-10">
-        @include('shared._messages')
-        @yield('content')
-        @include('layouts._footer')
-      </div>
-    </div>
-  </body>
-</html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><title>@yield('title', 'denghy / 工程现场')</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head><body class="site-body"><header class="site-header"><div class="shell nav-shell"><a class="brand" href="{{ route('home') }}">denghy <span>/ 工程现场</span></a><nav class="site-nav"><a href="{{ route('home') }}">返回首页</a><a href="{{ route('about') }}">About</a></nav></div></header><main class="shell narrow-page" style="padding: 64px 0">@include('shared._messages')@include('shared._errors')@yield('content')</main></body></html>

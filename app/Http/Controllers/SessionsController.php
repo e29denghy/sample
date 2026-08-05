@@ -43,8 +43,17 @@ class SessionsController extends Controller implements HasMiddleware
             return redirect('/')->with('warning', '你的账号未激活，请检查邮箱中的注册邮件进行激活。');
         }
 
-        return redirect()->intended(route('users.show', Auth::user()))
-            ->with('success', '欢迎回来！');
+        if (! Auth::user()->is_admin) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/')->with('warning', '当前站点仅开放站长内容后台。');
+        }
+
+        Auth::user()->forceFill(['last_login_at' => now()])->save();
+
+        return redirect()->intended(route('admin.dashboard'))->with('success', '欢迎回来！');
     }
 
     public function destroy(Request $request): RedirectResponse

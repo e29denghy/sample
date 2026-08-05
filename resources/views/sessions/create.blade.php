@@ -32,7 +32,7 @@
 
       <hr>
 
-      <p>还没账号？<a href="{{ route('signup') }}">现在注册！</a></p>
+      <p class="text-muted">这是单站长内容后台。账号由管理员预置，暂不开放公开注册。</p>
     </div>
   </div>
 </div>

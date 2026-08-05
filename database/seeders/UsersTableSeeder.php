@@ -10,8 +10,6 @@ class UsersTableSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->count(50)->create();
-
         $email = env('SEED_ADMIN_EMAIL');
         $password = env('SEED_ADMIN_PASSWORD');
 
