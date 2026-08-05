@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @source '../../resources/views/**/*.blade.php';
+@source '../../resources/js/**/*.vue';
 
 :root {
     --paper: #f6f4ef;

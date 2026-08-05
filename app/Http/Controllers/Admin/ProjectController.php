@@ -8,18 +8,22 @@ use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProjectController extends Controller
 {
-    public function index(): View
+    public function index(): Response
     {
-        return view('admin.projects.index', ['projects' => Project::latest('updated_at')->paginate(20)]);
+        return Inertia::render('Admin/Projects/Index', [
+            'projects' => Project::latest('updated_at')->paginate(20),
+            'createUrl' => route('admin.projects.create'),
+        ]);
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('admin.projects.form', ['project' => new Project]);
+        return Inertia::render('Admin/Projects/Form', $this->formProps(new Project));
     }
 
     public function store(Request $request): RedirectResponse
@@ -27,9 +31,9 @@ class ProjectController extends Controller
         return $this->persist($request, new Project);
     }
 
-    public function edit(Project $project): View
+    public function edit(Project $project): Response
     {
-        return view('admin.projects.form', compact('project'));
+        return Inertia::render('Admin/Projects/Form', $this->formProps($project));
     }
 
     public function update(Request $request, Project $project): RedirectResponse
@@ -66,5 +70,14 @@ class ProjectController extends Controller
         });
 
         return redirect()->route('admin.projects.edit', $project)->with('success', '项目档案已保存。');
+    }
+
+    private function formProps(Project $project): array
+    {
+        return [
+            'project' => $project->exists ? $project : null,
+            'formAction' => $project->exists ? route('admin.projects.update', $project) : route('admin.projects.store'),
+            'formMethod' => $project->exists ? 'patch' : 'post',
+        ];
     }
 }

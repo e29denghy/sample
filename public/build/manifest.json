@@ -8,10 +8,88 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/Pages/Admin/AdminLayout.vue": {
+    "file": "assets/AdminLayout-CdC8jBAC.js",
+    "name": "AdminLayout",
+    "src": "resources/js/Pages/Admin/AdminLayout.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Articles/Form.vue": {
+    "file": "assets/Form-Cpu4uZ54.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Admin/Articles/Form.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
+  "resources/js/Pages/Admin/Articles/Index.vue": {
+    "file": "assets/Index-5hzVousF.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/Articles/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
+  "resources/js/Pages/Admin/Articles/Preview.vue": {
+    "file": "assets/Preview-DswZ2cNS.js",
+    "name": "Preview",
+    "src": "resources/js/Pages/Admin/Articles/Preview.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
+  "resources/js/Pages/Admin/Dashboard.vue": {
+    "file": "assets/Dashboard-BQ6blxiI.js",
+    "name": "Dashboard",
+    "src": "resources/js/Pages/Admin/Dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
+  "resources/js/Pages/Admin/Projects/Form.vue": {
+    "file": "assets/Form-BRY7QImS.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Admin/Projects/Form.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
+  "resources/js/Pages/Admin/Projects/Index.vue": {
+    "file": "assets/Index-C0mz2dpv.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/Projects/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "resources/js/Pages/Admin/AdminLayout.vue"
+    ]
+  },
   "resources/js/app.js": {
-    "file": "assets/app-BvRk9kiK.js",
+    "file": "assets/app-BofeOC9p.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Admin/AdminLayout.vue",
+      "resources/js/Pages/Admin/Articles/Form.vue",
+      "resources/js/Pages/Admin/Articles/Index.vue",
+      "resources/js/Pages/Admin/Articles/Preview.vue",
+      "resources/js/Pages/Admin/Dashboard.vue",
+      "resources/js/Pages/Admin/Projects/Form.vue",
+      "resources/js/Pages/Admin/Projects/Index.vue"
+    ]
   }
 }

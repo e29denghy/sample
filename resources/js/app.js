@@ -1,2 +1,18 @@
-// The first release is server-rendered. Keep this entrypoint for Vite and add
-// small progressive enhancements here when the content workflow needs them.
+import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
+import { createApp, h } from 'vue';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+
+const element = document.getElementById('app');
+
+if (element) {
+    createInertiaApp({
+        resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+        setup({ el, App, props, plugin }) {
+            createApp({ render: () => h(App, props) })
+                .use(plugin)
+                .component('Head', Head)
+                .component('Link', Link)
+                .mount(el);
+        },
+    });
+}

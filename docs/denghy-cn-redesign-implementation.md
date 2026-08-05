@@ -15,6 +15,8 @@
 - 已完成：草稿保存、服务端 Markdown 预览、发布事务、修订隔离、301 重定向、首页/文章/项目/Now/About、SEO 元数据和 JSON-LD；
 - 已完成：RSS 2.0、Atom、sitemap、ETag/Last-Modified，以及网站正文共用的 `/api/v1` 文章/标签/项目只读接口；
 - 已验证：PHP 8.5 下迁移、前端构建、Pint、5 个功能测试通过。
+- 迭代完成：接入 Inertia Laravel + Vue 3 + Vite Vue 插件，管理员概览、文章和项目后台已迁移到 Inertia 页面；公共内容页暂保留 Blade，以保持首屏 SEO，待 SSR 运行环境就绪后再迁移。
+- 迭代完成：新增可重复执行的 `ContentSeeder`，补充 InterAPI、KAIWU、MyAiWorkFlow、福宝英语角、denghy / 工程现场五个项目档案，以及五篇基于项目记忆知识库的公开工程文章；Seeder 只创建不存在的 slug，不覆盖人工编辑内容。
 
 本批次尚未接入真实媒体上传/封面选择、公众号草稿投递、远端核对和个人小程序客户端；这些能力依赖后续内容录入、公众号权限预检和部署环境配置，不能用本地测试替代。
 

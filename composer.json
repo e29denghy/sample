@@ -7,9 +7,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.5",
+        "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^13.8",
-        "league/commonmark": "^2.8",
         "laravel/tinker": "^3.0",
+        "league/commonmark": "^2.8",
         "overtrue/laravel-wechat": "^8.0"
     },
     "require-dev": {

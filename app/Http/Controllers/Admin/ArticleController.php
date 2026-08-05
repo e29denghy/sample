@@ -9,20 +9,22 @@ use App\Services\MarkdownRenderer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ArticleController extends Controller
 {
-    public function index(): View
+    public function index(): Response
     {
-        return view('admin.articles.index', [
+        return Inertia::render('Admin/Articles/Index', [
             'articles' => Article::with(['draftRevision', 'publishedRevision'])->latest('updated_at')->paginate(20),
+            'createUrl' => route('admin.articles.create'),
         ]);
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('admin.articles.form', ['article' => new Article, 'revision' => null]);
+        return Inertia::render('Admin/Articles/Form', $this->formProps(new Article, null));
     }
 
     public function store(Request $request, ArticleManager $manager): RedirectResponse
@@ -32,11 +34,11 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.edit', $article)->with('success', '草稿已保存。');
     }
 
-    public function edit(Article $article): View
+    public function edit(Article $article): Response
     {
         $article->load(['draftRevision', 'publishedRevision', 'tags']);
 
-        return view('admin.articles.form', ['article' => $article, 'revision' => $article->draftRevision ?: $article->publishedRevision]);
+        return Inertia::render('Admin/Articles/Form', $this->formProps($article, $article->draftRevision ?: $article->publishedRevision));
     }
 
     public function update(Request $request, Article $article, ArticleManager $manager): RedirectResponse
@@ -46,11 +48,11 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.edit', $article)->with('success', '新修订草稿已保存，尚未影响公开正文。');
     }
 
-    public function preview(Request $request, MarkdownRenderer $renderer): View
+    public function preview(Request $request, MarkdownRenderer $renderer): Response
     {
         $data = $this->validated($request);
 
-        return view('admin.articles.preview', [
+        return Inertia::render('Admin/Articles/Preview', [
             'title' => $data['title'],
             'excerpt' => $data['excerpt'] ?? null,
             'html' => $renderer->render($data['markdown']),
@@ -92,5 +94,19 @@ class ArticleController extends Controller
             ->all();
 
         return $data;
+    }
+
+    private function formProps(Article $article, $revision): array
+    {
+        return [
+            'article' => $article->exists ? $article : null,
+            'revision' => $revision,
+            'formAction' => $article->exists ? route('admin.articles.update', $article) : route('admin.articles.store'),
+            'formMethod' => $article->exists ? 'patch' : 'post',
+            'previewAction' => route('admin.articles.preview'),
+            'publishAction' => $article->exists && $article->draftRevision ? route('admin.articles.publish', $article) : null,
+            'archiveAction' => $article->exists ? route('admin.articles.archive', $article) : null,
+            'publicUrl' => $article->exists && $article->isPublic() ? route('articles.show', $article->slug) : null,
+        ];
     }
 }
