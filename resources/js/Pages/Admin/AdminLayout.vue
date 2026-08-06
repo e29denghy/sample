@@ -15,7 +15,7 @@ const page = usePage();
     <div class="admin-body">
         <header class="site-header">
             <div class="shell nav-shell">
-                <Link class="brand" href="/admin">denghy <span>/ 内容后台</span></Link>
+                <Link class="brand" href="/admin">程序员的个人修养 <span>/ 内容后台</span></Link>
                 <nav class="site-nav" aria-label="后台导航">
                     <Link href="/">查看网站</Link>
                     <Link href="/admin/articles">文章</Link>

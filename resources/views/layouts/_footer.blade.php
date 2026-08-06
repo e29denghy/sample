@@ -11,10 +11,10 @@
         <li><a href="{{ route('about') }}">关于</a></li>
       </ul>
       <ul>
-        <li><a href="Http://www.miitbeian.gov.cn/">粤ICP备18024712号</a></li>
+        <li><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备18024712号</a></li>
       </ul>
       <ul>
-        <li><a href="{{ route('about') }}">©2018 denghy.cn</a></li>
+        <li><a href="{{ route('about') }}">©2018 程序员的个人修养</a></li>
       </ul>
     </nav>
   </footer>

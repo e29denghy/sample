@@ -163,7 +163,7 @@ class ContentSeeder extends Seeder
                 'sort_order' => 40,
             ],
             [
-                'name' => 'denghy / 工程现场',
+                'name' => '程序员的个人修养 / 工程现场',
                 'slug' => 'denghy-engineering-site',
                 'status' => 'active',
                 'summary' => '记录 AI、内容系统、Laravel、部署和工作流实践的个人工程内容站。',

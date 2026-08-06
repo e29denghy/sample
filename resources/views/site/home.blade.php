@@ -1,9 +1,9 @@
 @extends('layouts.site')
 
-@section('title', 'denghy / 工程现场')
+@section('title', '程序员的个人修养 / 工程现场')
 @section('description', 'Production notes on AI, content systems and Laravel.')
 @push('head')
-    @include('shared._seo', ['title' => 'denghy / 工程现场', 'description' => 'Production notes on AI, content systems and Laravel.', 'canonical' => route('home')])
+    @include('shared._seo', ['title' => '程序员的个人修养 / 工程现场', 'description' => 'Production notes on AI, content systems and Laravel.', 'canonical' => route('home')])
 @endpush
 
 @section('content')

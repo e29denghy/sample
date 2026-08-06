@@ -49,6 +49,15 @@ class ContentPublishingTest extends TestCase
         $this->actingAs(User::factory()->create())->get(route('admin.dashboard'))->assertForbidden();
     }
 
+    public function test_public_layout_preserves_original_brand_and_icp_record(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('程序员的个人修养')
+            ->assertSee('粤ICP备18024712号')
+            ->assertSee('https://beian.miit.gov.cn/');
+    }
+
     public function test_feed_and_api_use_the_same_published_revision(): void
     {
         $admin = User::factory()->create(['is_admin' => true]);

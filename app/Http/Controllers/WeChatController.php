@@ -24,7 +24,7 @@ class WeChatController extends Controller
 
         $server = app('easywechat.official_account')->getServer();
         $server->with(function (): string {
-            return '欢迎关注程序猿个人修养！';
+            return '欢迎关注程序员的个人修养！';
         });
 
         return $server->serve();

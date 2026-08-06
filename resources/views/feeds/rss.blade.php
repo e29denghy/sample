@@ -1,1 +1,21 @@
-<rss version="2.0"><channel><title>denghy / 工程现场</title><link>{{ url('/') }}</link><description>Production notes on AI, content systems and Laravel.</description><language>zh-CN</language><atom:link href="{{ route('feeds.rss') }}" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />@foreach($articles as $article)@php($revision = $article->publishedRevision)<item><title>{{ $revision->title }}</title><link>{{ $article->canonicalUrl() }}</link><guid isPermaLink="false">urn:denghy:article:{{ $article->public_id }}</guid><pubDate>{{ $article->published_at->toRfc2822String() }}</pubDate><description><![CDATA[{{ $revision->excerpt }}]]></description><content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[{!! str_replace(']]>', ']]]]><![CDATA[>', \App\Http\Controllers\FeedController::absoluteHtml($revision->rendered_html)) !!}]]></content:encoded><category>{{ $article->tags->pluck('name')->implode(', ') }}</category></item>@endforeach</channel></rss>
+<rss version="2.0">
+    <channel>
+        <title>程序员的个人修养 / 工程现场</title>
+        <link>{{ url('/') }}</link>
+        <description>Production notes on AI, content systems and Laravel.</description>
+        <language>zh-CN</language>
+        <atom:link href="{{ route('feeds.rss') }}" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />
+        @foreach($articles as $article)
+            @php($revision = $article->publishedRevision)
+            <item>
+                <title>{{ $revision->title }}</title>
+                <link>{{ $article->canonicalUrl() }}</link>
+                <guid isPermaLink="false">urn:denghy:article:{{ $article->public_id }}</guid>
+                <pubDate>{{ $article->published_at->toRfc2822String() }}</pubDate>
+                <description><![CDATA[{{ $revision->excerpt }}]]></description>
+                <content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[{!! str_replace(']]>', ']]]]><![CDATA[>', \App\Http\Controllers\FeedController::absoluteHtml($revision->rendered_html)) !!}]]></content:encoded>
+                <category>{{ $article->tags->pluck('name')->implode(', ') }}</category>
+            </item>
+        @endforeach
+    </channel>
+</rss>
