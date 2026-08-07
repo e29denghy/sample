@@ -15,12 +15,15 @@
 <body class="site-body">
     <header class="site-header">
         <div class="shell nav-shell">
-            <a class="brand" href="{{ route('home') }}">程序员的个人修养 <span>/ 工程现场</span></a>
+            <a class="brand" href="{{ route('home') }}" aria-label="程序员的个人修养首页">
+                <span class="brand-mark" aria-hidden="true">修</span>
+                <span class="brand-copy">程序员的个人修养 <small>工程现场</small></span>
+            </a>
             <nav aria-label="主导航" class="site-nav">
-                <a href="{{ route('articles.index') }}">文章</a>
-                <a href="{{ route('projects.index') }}">项目</a>
-                <a href="{{ route('now') }}">Now</a>
-                <a href="{{ route('about') }}">About</a>
+                <a href="{{ route('articles.index') }}" @class(['is-active' => request()->routeIs('articles.*', 'tags.*')]) @if(request()->routeIs('articles.*', 'tags.*')) aria-current="page" @endif>文章</a>
+                <a href="{{ route('projects.index') }}" @class(['is-active' => request()->routeIs('projects.*')]) @if(request()->routeIs('projects.*')) aria-current="page" @endif>项目</a>
+                <a href="{{ route('now') }}" @class(['is-active' => request()->routeIs('now')]) @if(request()->routeIs('now')) aria-current="page" @endif>Now</a>
+                <a href="{{ route('about') }}" @class(['is-active' => request()->routeIs('about')]) @if(request()->routeIs('about')) aria-current="page" @endif>About</a>
                 <a href="{{ route('feeds.rss') }}">RSS</a>
                 @auth
                     @can('admin') <a href="{{ route('admin.dashboard') }}">后台</a> @endcan
@@ -39,9 +42,9 @@
 
     <footer class="site-footer">
         <div class="shell footer-grid">
-            <p>程序员的个人修养 · 把复杂的 AI、内容与业务流程，做成可验证、可发布、可维护的系统。</p>
-            <div><a href="{{ route('feeds.rss') }}">RSS</a><span aria-hidden="true"> · </span><a href="{{ route('feeds.atom') }}">Atom</a></div>
-            <div><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备18024712号</a></div>
+            <div class="footer-intro"><strong>程序员的个人修养</strong><p>记录问题、约束、决策与验证，也记录系统如何真正上线。</p></div>
+            <nav aria-label="页脚导航" class="footer-links"><a href="{{ route('articles.index') }}">文章</a><a href="{{ route('projects.index') }}">项目</a><a href="{{ route('about') }}">关于</a><a href="{{ route('feeds.rss') }}">RSS</a><a href="{{ route('feeds.atom') }}">Atom</a></nav>
+            <div class="footer-meta"><span>© {{ now()->year }} denghy.cn</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备18024712号</a></div>
         </div>
     </footer>
 </body>

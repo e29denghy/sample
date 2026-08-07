@@ -29,9 +29,10 @@ const error = (key) => form.errors[key] || '';
 <template>
     <Head :title="project ? '编辑项目' : '新建项目'" />
     <AdminLayout>
-        <div class="admin-heading"><div><p class="eyebrow">PROJECT FILE</p><h1>{{ project ? '编辑项目' : '新建项目' }}</h1></div></div>
+        <div class="admin-heading"><div><p class="eyebrow">PROJECT FILE / 项目编辑器</p><h1>{{ project ? '编辑项目' : '新建项目' }}</h1><p>用统一结构记录项目现场，并控制首页精选与公开状态。</p></div></div>
         <form class="editor-form" @submit.prevent="submit">
-            <div class="editor-main">
+            <div class="editor-main admin-panel">
+                <div class="editor-section-title"><span>01</span><div><strong>项目内容</strong><small>问题、决策、证据和结果</small></div></div>
                 <label>名称<input v-model="form.name" required><small class="alert-danger">{{ error('name') }}</small></label>
                 <label>Slug<input v-model="form.slug" required><small class="alert-danger">{{ error('slug') }}</small></label>
                 <label>摘要<textarea v-model="form.summary" rows="4" /></label>
@@ -40,7 +41,8 @@ const error = (key) => form.errors[key] || '';
                 <label>证据<textarea v-model="form.evidence" rows="7" /></label>
                 <label>结果<textarea v-model="form.outcome" rows="7" /></label>
             </div>
-            <aside class="editor-side">
+            <aside class="editor-side admin-panel">
+                <div class="editor-section-title"><span>02</span><div><strong>展示设置</strong><small>状态、排序与公开范围</small></div></div>
                 <label>状态<input v-model="form.status" required></label>
                 <label>排序<input v-model="form.sort_order" type="number" min="0"></label>
                 <label class="check-label"><input v-model="form.is_featured" type="checkbox"> 首页精选</label>

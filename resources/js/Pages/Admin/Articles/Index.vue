@@ -12,7 +12,7 @@ defineProps({
     <Head title="文章" />
     <AdminLayout>
         <div class="admin-heading">
-            <div><p class="eyebrow">ARTICLES</p><h1>文章修订</h1></div>
+            <div><p class="eyebrow">ARTICLES / 内容管理</p><h1>文章修订</h1><p>草稿可持续编辑，只有确认发布的修订会进入公开渠道。</p></div>
             <Link class="button button-primary" :href="createUrl">新建文章</Link>
         </div>
         <div class="admin-panel table-wrap">

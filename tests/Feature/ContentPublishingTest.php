@@ -55,7 +55,28 @@ class ContentPublishingTest extends TestCase
             ->assertOk()
             ->assertSee('程序员的个人修养')
             ->assertSee('粤ICP备18024712号')
-            ->assertSee('https://beian.miit.gov.cn/');
+            ->assertSee('https://beian.miit.gov.cn/')
+            ->assertSee('把复杂流程')
+            ->assertSee('可验证的系统')
+            ->assertSeeInOrder(['问题', '约束', '决策', '验证', '上线'])
+            ->assertDontSee('把复杂的 AI、内容与业务流程，做成可验证、可发布、可维护的系统。');
+    }
+
+    public function test_shared_visual_language_reaches_public_and_auth_pages(): void
+    {
+        $this->get(route('articles.index'))
+            ->assertOk()
+            ->assertSee('ARTICLES / 工程文章')
+            ->assertSee('footer-grid', false);
+
+        $this->get(route('projects.index'))
+            ->assertOk()
+            ->assertSee('PROJECTS / 项目档案');
+
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertSee('CONTENT CONTROL ROOM')
+            ->assertSee('管理员专用入口');
     }
 
     public function test_feed_and_api_use_the_same_published_revision(): void

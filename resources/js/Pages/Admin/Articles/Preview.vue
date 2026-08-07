@@ -12,8 +12,8 @@ defineProps({
 <template>
     <Head :title="`预览：${title}`" />
     <AdminLayout>
-        <article class="shell article-page preview-page">
-            <header class="article-header"><p class="eyebrow">PREVIEW</p><h1>{{ title }}</h1><p class="article-lede">{{ excerpt }}</p></header>
+        <article class="article-page preview-page">
+            <header class="article-header"><p class="eyebrow">PREVIEW / 未公开预览</p><h1>{{ title }}</h1><p class="article-lede">{{ excerpt }}</p></header>
             <div class="article-body prose" v-html="html" />
         </article>
     </AdminLayout>

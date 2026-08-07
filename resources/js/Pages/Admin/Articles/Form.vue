@@ -48,17 +48,19 @@ const error = (key) => form.errors[key] || '';
     <Head :title="article ? '编辑文章' : '新建文章'" />
     <AdminLayout>
         <div class="admin-heading">
-            <div><p class="eyebrow">ARTICLE EDITOR</p><h1>{{ article ? '编辑文章' : '新建文章' }}</h1></div>
+            <div><p class="eyebrow">ARTICLE EDITOR / 文章编辑器</p><h1>{{ article ? '编辑文章' : '新建文章' }}</h1><p>先保存草稿和预览，再决定是否发布当前修订。</p></div>
             <a v-if="publicUrl" class="button button-quiet" :href="publicUrl">查看公开页</a>
         </div>
         <form class="editor-form" @submit.prevent="submit">
-            <div class="editor-main">
+            <div class="editor-main admin-panel">
+                <div class="editor-section-title"><span>01</span><div><strong>正文内容</strong><small>公开页面的核心事实来源</small></div></div>
                 <label>标题<input v-model="form.title" required><small class="alert-danger">{{ error('title') }}</small></label>
                 <label>Slug<input v-model="form.slug" placeholder="laravel-release-notes" required><small>只使用小写字母、数字和连字符；变更后旧地址会写入 301 重定向。</small><small class="alert-danger">{{ error('slug') }}</small></label>
                 <label>摘要<textarea v-model="form.excerpt" rows="3" /><small class="alert-danger">{{ error('excerpt') }}</small></label>
                 <label>正文 Markdown<textarea v-model="form.markdown" rows="24" required /><small class="alert-danger">{{ error('markdown') }}</small></label>
             </div>
-            <aside class="editor-side">
+            <aside class="editor-side admin-panel">
+                <div class="editor-section-title"><span>02</span><div><strong>发布设置</strong><small>元数据与验证边界</small></div></div>
                 <label>标签<input v-model="tagText" placeholder="Laravel, 部署, AI"></label>
                 <label>SEO 标题<input v-model="form.seo_title"></label>
                 <label>SEO 描述<textarea v-model="form.seo_description" rows="5" /></label>
