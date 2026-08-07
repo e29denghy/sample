@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -17,15 +16,16 @@ class UsersTableSeeder extends Seeder
             return;
         }
 
-        User::updateOrCreate(
-            ['email' => $email],
-            [
-                'name' => env('SEED_ADMIN_NAME', 'admin'),
-                'password' => Hash::make($password),
-                'is_admin' => true,
-                'activated' => true,
-                'activation_token' => null,
-            ],
-        );
+        $user = User::firstOrNew(['email' => $email]);
+        $user->fill([
+            'name' => env('SEED_ADMIN_NAME', 'admin'),
+            'password' => $password,
+        ]);
+        $user->forceFill([
+            'is_admin' => true,
+            'activated' => true,
+            'activation_token' => null,
+        ]);
+        $user->save();
     }
 }

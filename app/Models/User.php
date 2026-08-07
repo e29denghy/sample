@@ -34,7 +34,9 @@ class User extends Authenticatable
     protected static function booted(): void
     {
         static::creating(function (self $user): void {
-            $user->activation_token ??= Str::random(30);
+            if (! $user->activated) {
+                $user->activation_token ??= Str::random(30);
+            }
         });
     }
 
