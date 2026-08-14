@@ -224,6 +224,7 @@ h3 { margin: 8px 0; font-size: 1.28rem; }
 .prose code { padding: .14em .34em; border-radius: 2px; background: var(--paper-deep); font-size: .9em; }
 .prose pre code { padding: 0; color: inherit; background: none; }
 .prose blockquote { margin-left: 0; padding: 4px 0 4px 20px; color: var(--muted); border-left: 3px solid var(--teal); }
+.prose img { width: 100%; max-width: 100%; height: auto; display: block; margin: 1.65em auto; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); box-shadow: var(--shadow-sm); }
 .article-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 28px 0 88px; border-top: 1px solid var(--line-strong); }
 .article-footer p { margin: 0; }
 .footer-label { margin-bottom: 10px !important; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; }

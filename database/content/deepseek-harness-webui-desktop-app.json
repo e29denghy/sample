@@ -1,0 +1,15 @@
+{
+    "title": "30 秒把 DeepSeek Harness 放进 Dock：Web UI 也能像桌面 App 一样打开",
+    "slug": "deepseek-harness-webui-desktop-app",
+    "excerpt": "不用装第三方插件，也不用等原生客户端。借助 Chrome 自带的应用模式，可以把 DeepSeek Harness 的本地 Web UI 变成可固定在 Dock、可由 Spotlight 唤起的独立窗口。",
+    "seo_title": "把 DeepSeek Harness Web UI 变成桌面 App",
+    "seo_description": "使用 Chrome 把 DeepSeek Harness 的本地 Web UI 创建为独立桌面窗口，获得 Dock 图标、Spotlight 搜索和无地址栏体验，并说明启动服务、菜单差异与全屏模式避坑。",
+    "verification_status": "valid",
+    "tags": [
+        "DeepSeek Harness",
+        "Chrome",
+        "macOS",
+        "Web UI"
+    ],
+    "markdown_file": "database/content/deepseek-harness-webui-desktop-app.md"
+}
