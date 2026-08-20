@@ -33,6 +33,9 @@ class LearnHarnessEngineeringArticlePackageTest extends TestCase
         $this->assertStringContainsString('截至 2026-08-20', $markdown);
         $this->assertStringStartsWith('# 模型已经会写代码，为什么项目还是会翻车？', $wechatMarkdown);
         $this->assertStringContainsString('https://github.com/walkinglabs/learn-harness-engineering', $wechatMarkdown);
+        $this->assertStringContainsString('> 摘要：AI 编程 Agent 真正难的', $wechatMarkdown);
+        $this->assertStringNotContainsString('*', $markdown);
+        $this->assertStringNotContainsString('*', $wechatMarkdown);
 
         preg_match_all(
             '#https://denghy\\.cn/images/articles/learn-harness-engineering/[a-z0-9-]+\\.jpg#',
