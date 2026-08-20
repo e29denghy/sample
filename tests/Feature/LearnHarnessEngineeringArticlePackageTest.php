@@ -21,6 +21,11 @@ class LearnHarnessEngineeringArticlePackageTest extends TestCase
         );
         $markdown = file_get_contents(base_path($manifest['markdown_file']));
         $wechatMarkdown = file_get_contents(base_path('docs/wechat/learn-harness-engineering.md'));
+        $articleImageUrls = [
+            'https://denghy.cn/images/articles/learn-harness-engineering/00-cover.jpg',
+            'https://denghy.cn/images/articles/learn-harness-engineering/01-five-subsystems.jpg',
+            'https://denghy.cn/images/articles/learn-harness-engineering/02-learning-path.jpg',
+        ];
 
         $this->assertStringContainsString('14 讲、8 个递进实践、15 种语言版本', $markdown);
         $this->assertStringContainsString('Project 08', $markdown);
@@ -28,6 +33,27 @@ class LearnHarnessEngineeringArticlePackageTest extends TestCase
         $this->assertStringContainsString('截至 2026-08-20', $markdown);
         $this->assertStringStartsWith('# 模型已经会写代码，为什么项目还是会翻车？', $wechatMarkdown);
         $this->assertStringContainsString('https://github.com/walkinglabs/learn-harness-engineering', $wechatMarkdown);
+
+        preg_match_all(
+            '#https://denghy\\.cn/images/articles/learn-harness-engineering/[a-z0-9-]+\\.jpg#',
+            $markdown,
+            $markdownImageUrls,
+        );
+        preg_match_all(
+            '#https://denghy\\.cn/images/articles/learn-harness-engineering/[a-z0-9-]+\\.jpg#',
+            $wechatMarkdown,
+            $wechatImageUrls,
+        );
+
+        $this->assertSame($articleImageUrls, array_values(array_unique($markdownImageUrls[0])));
+        $this->assertSame($articleImageUrls, array_values(array_unique($wechatImageUrls[0])));
+
+        foreach ($articleImageUrls as $imageUrl) {
+            $imagePath = parse_url($imageUrl, PHP_URL_PATH);
+
+            $this->assertIsString($imagePath);
+            $this->assertFileExists(public_path(ltrim($imagePath, '/')));
+        }
 
         $this->seed(ContentSeeder::class);
 

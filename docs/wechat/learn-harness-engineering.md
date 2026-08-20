@@ -10,6 +10,8 @@
 
 这正是开源项目 [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering) 想解决的问题。
 
+![Learn Harness Engineering：让 AI 编程从生成代码走向可靠交付](https://denghy.cn/images/articles/learn-harness-engineering/00-cover.jpg)
+
 ## Harness Engineering 不是“再写一份更长的提示词”
 
 Harness 可以理解为套在模型外面的工程环境。模型负责推理和生成，Harness 负责规定它在什么范围内工作、从哪里读取事实、如何保存状态、用什么方式验证，以及什么时候才允许宣布完成。
@@ -35,6 +37,8 @@ Harness 可以理解为套在模型外面的工程环境。模型负责推理和
 **五、Session Lifecycle：会话生命周期。**
 
 开始时初始化环境，结束时清理状态、记录交接信息，并确保下一个会话有一条可恢复的路径。
+
+![Harness Engineering 的五个子系统：指令、状态、验证、范围与会话生命周期](https://denghy.cn/images/articles/learn-harness-engineering/01-five-subsystems.jpg)
 
 把这五部分连起来以后，Agent 的工作方式会从“收到一句话就开始写”变成一个闭环：
 
@@ -75,6 +79,8 @@ Project 07 进入 Loop Engineering。它让你分别体验 Goal Loop、Timer Loo
 Project 08 继续走向 Graph Engineering：显式写出节点、边、共享状态和路由规则，再加入并行分支、条件回退和人工审批节点。
 
 这一步不是鼓励所有任务都上复杂编排。相反，它帮助你判断：什么时候一个简单循环已经不够，什么时候并行和审批带来的价值能够覆盖协调成本。
+
+![Harness 学习路径：从单次任务到可靠循环，再到带回退与人工审批的图结构](https://denghy.cn/images/articles/learn-harness-engineering/02-learning-path.jpg)
 
 ## 它还拆了四种真实 Harness 设计
 
