@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BsKnkyX-.css",
+    "file": "assets/app-CMt9w1ee.css",
     "name": "app",
     "names": [
       "app.css"
@@ -9,7 +9,7 @@
     "isEntry": true
   },
   "resources/js/Pages/Admin/AdminLayout.vue": {
-    "file": "assets/AdminLayout-07qtxosz.js",
+    "file": "assets/AdminLayout-CfJCafLq.js",
     "name": "AdminLayout",
     "src": "resources/js/Pages/Admin/AdminLayout.vue",
     "isDynamicEntry": true,
@@ -18,7 +18,7 @@
     ]
   },
   "resources/js/Pages/Admin/Articles/Form.vue": {
-    "file": "assets/Form-B3JMHZ5h.js",
+    "file": "assets/Form-SVvTEuW2.js",
     "name": "Form",
     "src": "resources/js/Pages/Admin/Articles/Form.vue",
     "isDynamicEntry": true,
@@ -28,7 +28,7 @@
     ]
   },
   "resources/js/Pages/Admin/Articles/Index.vue": {
-    "file": "assets/Index-DpnABx1Q.js",
+    "file": "assets/Index-Dt_pXnvp.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Articles/Index.vue",
     "isDynamicEntry": true,
@@ -38,7 +38,7 @@
     ]
   },
   "resources/js/Pages/Admin/Articles/Preview.vue": {
-    "file": "assets/Preview-CXnYaSSJ.js",
+    "file": "assets/Preview-DskGxOux.js",
     "name": "Preview",
     "src": "resources/js/Pages/Admin/Articles/Preview.vue",
     "isDynamicEntry": true,
@@ -48,7 +48,7 @@
     ]
   },
   "resources/js/Pages/Admin/Dashboard.vue": {
-    "file": "assets/Dashboard-CcRK_gyw.js",
+    "file": "assets/Dashboard-DbRAPwFt.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Admin/Dashboard.vue",
     "isDynamicEntry": true,
@@ -58,7 +58,7 @@
     ]
   },
   "resources/js/Pages/Admin/Projects/Form.vue": {
-    "file": "assets/Form-YF0FmdQM.js",
+    "file": "assets/Form-B7F-DBwp.js",
     "name": "Form",
     "src": "resources/js/Pages/Admin/Projects/Form.vue",
     "isDynamicEntry": true,
@@ -68,7 +68,7 @@
     ]
   },
   "resources/js/Pages/Admin/Projects/Index.vue": {
-    "file": "assets/Index-CrgnQD7d.js",
+    "file": "assets/Index-4CQu7NUK.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Projects/Index.vue",
     "isDynamicEntry": true,
@@ -78,7 +78,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-BxQA6yd9.js",
+    "file": "assets/app-py8qr1ii.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,

@@ -17,6 +17,7 @@ const form = useForm({
     decisions: props.project?.decisions || '',
     evidence: props.project?.evidence || '',
     outcome: props.project?.outcome || '',
+    source_url: props.project?.source_url || '',
     sort_order: props.project?.sort_order || 0,
     is_featured: Boolean(props.project?.is_featured),
     is_public: props.project ? Boolean(props.project.is_public) : true,
@@ -40,6 +41,7 @@ const error = (key) => form.errors[key] || '';
                 <label>方案与决策<textarea v-model="form.decisions" rows="7" /></label>
                 <label>证据<textarea v-model="form.evidence" rows="7" /></label>
                 <label>结果<textarea v-model="form.outcome" rows="7" /></label>
+                <label>开源地址<input v-model="form.source_url" type="url" placeholder="https://github.com/owner/repository"><small class="alert-danger">{{ error('source_url') }}</small></label>
             </div>
             <aside class="editor-side admin-panel">
                 <div class="editor-section-title"><span>02</span><div><strong>展示设置</strong><small>状态、排序与公开范围</small></div></div>

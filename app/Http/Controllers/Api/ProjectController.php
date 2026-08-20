@@ -28,6 +28,7 @@ class ProjectController extends Controller
             'slug' => $project->slug,
             'status' => $project->status,
             'summary' => $project->summary,
+            'source_url' => $project->source_url,
             'published_at' => $project->published_at?->toIso8601String(),
             'canonical_url' => route('projects.show', $project->slug),
         ];

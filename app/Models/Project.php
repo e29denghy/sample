@@ -14,7 +14,7 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'slug', 'status', 'summary', 'problem', 'decisions', 'evidence', 'outcome',
+        'name', 'slug', 'status', 'summary', 'problem', 'decisions', 'evidence', 'outcome', 'source_url',
         'cover_media_id', 'is_public', 'is_featured', 'sort_order', 'published_at',
     ];
 

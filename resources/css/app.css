@@ -231,6 +231,7 @@ h3 { margin: 8px 0; font-size: 1.28rem; }
 .project-header { display: grid; grid-template-columns: 1fr minmax(280px, .48fr); gap: 35px 80px; align-items: end; }
 .project-header .back-link { grid-column: 1 / -1; margin-bottom: 0; }
 .project-header > p { padding-bottom: 6px; }
+.project-source-link { margin-top: 24px; }
 .project-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--line); background: var(--line); }
 .project-sections section { min-height: 250px; padding: 30px; background: var(--surface); }
 .project-sections section:nth-child(2), .project-sections section:nth-child(3) { background: rgba(220, 234, 229, .38); }

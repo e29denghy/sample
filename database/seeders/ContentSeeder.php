@@ -163,6 +163,20 @@ class ContentSeeder extends Seeder
                 'sort_order' => 40,
             ],
             [
+                'name' => 'Learn Harness Engineering',
+                'slug' => 'learn-harness-engineering',
+                'status' => 'open-source',
+                'summary' => '一套面向 AI 编程 Agent 的开源项目型课程，通过 14 讲、8 个递进实践和可复用模板，学习如何用环境、状态、验证与控制机制提升真实工程任务的可靠性。',
+                'problem' => '模型能生成代码，不等于它能在真实仓库里跨会话完成任务。缺少项目规则、持久状态、执行反馈和验收门槛时，Agent 容易越界修改、遗漏步骤、重复返工或提前宣布完成。',
+                'decisions' => '课程用讲义、实战项目、资源模板和真实产品拆解四条路径组织内容；把可操作的 Harness 拆成 Instructions、State、Verification、Scope 和 Session Lifecycle，并通过 baseline 对比、跨会话接力、Maker-Checker Loop、Graph 与人工审批逐步加固。',
+                'evidence' => '截至 2026-08-20，主分支 README 标注 14 Lectures、8 Projects、15 Languages 和 MIT License；中文项目目录提供 starter/solution 实践，资源库包含 AGENTS.md、feature_list、init、交接与验证模板。',
+                'outcome' => '项目提供了一条可测量的 Harness 学习路径：先用相同任务建立无 Harness 基线，再逐步比较完成率、人工介入、错误完成、返工量和跨会话恢复时间。课程本身是学习材料，不等同于生产可靠性保证。',
+                'source_url' => 'https://github.com/walkinglabs/learn-harness-engineering',
+                'is_public' => true,
+                'is_featured' => false,
+                'sort_order' => 45,
+            ],
+            [
                 'name' => '程序员的个人修养 / 工程现场',
                 'slug' => 'denghy-engineering-site',
                 'status' => 'active',
@@ -181,7 +195,7 @@ class ContentSeeder extends Seeder
     /** @return list<array<string, mixed>> */
     private function articles(): array
     {
-        return [
+        $articles = [
             [
                 'title' => '把工程现场写成可验证的发布链路',
                 'slug' => 'engineering-notes-as-verifiable-release-chain',
@@ -324,5 +338,23 @@ MD,
 MD,
             ],
         ];
+
+        $articles[] = $this->loadArticlePackage('learn-harness-engineering-guide');
+
+        return $articles;
+    }
+
+    /** @return array<string, mixed> */
+    private function loadArticlePackage(string $name): array
+    {
+        $manifest = json_decode(
+            file_get_contents(database_path("content/{$name}.json")),
+            true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+        $manifest['markdown'] = file_get_contents(base_path($manifest['markdown_file']));
+        unset($manifest['markdown_file']);
+
+        return $manifest;
     }
 }

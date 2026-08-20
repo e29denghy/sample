@@ -1,0 +1,18 @@
+{
+    "title": "模型已经会写代码，为什么项目还是会翻车？一套开源 Harness 工程学习路径",
+    "slug": "learn-harness-engineering-open-source-course-guide",
+    "excerpt": "AI 编程 Agent 真正难的，不是生成一段代码，而是在真实仓库里跨会话完成任务、验证结果，并留下可恢复的状态。Learn Harness Engineering 用 14 讲、8 个实践和一套可复用模板，把这件事拆成了可以动手学习的工程路径。",
+    "seo_title": "Learn Harness Engineering：开源 Harness 工程学习路径",
+    "seo_description": "介绍 Learn Harness Engineering 开源课程的 Harness 五子系统、14 讲与 8 个实践，并给出从最小对比实验到真实项目落地的学习路线。",
+    "verification_status": "valid",
+    "tags": [
+        "Harness Engineering",
+        "AI Agent",
+        "Codex",
+        "开源课程"
+    ],
+    "projects": [
+        "learn-harness-engineering"
+    ],
+    "markdown_file": "database/content/learn-harness-engineering-guide.md"
+}

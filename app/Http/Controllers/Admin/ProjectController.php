@@ -52,6 +52,7 @@ class ProjectController extends Controller
             'decisions' => ['nullable', 'string'],
             'evidence' => ['nullable', 'string'],
             'outcome' => ['nullable', 'string'],
+            'source_url' => ['nullable', 'url:http,https', 'max:2048'],
             'sort_order' => ['required', 'integer', 'min:0', 'max:9999'],
         ]);
         $isPublic = $request->boolean('is_public');
