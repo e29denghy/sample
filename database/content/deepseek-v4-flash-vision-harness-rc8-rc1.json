@@ -1,9 +1,9 @@
 {
-    "title": "当 Coding Agent 开始看懂截图：DeepSeek V4 Vision 与 Harness rc.8 / rc.1 更新解读",
+    "title": "当 DeepSeek Harness 开始看懂截图：DeepSeek V4 Vision Exp与 Harness 0.1 rc.8 / 0.1.1 rc.1 / 0.1.1 rc.2 更新解读",
     "slug": "deepseek-v4-flash-vision-harness-rc8-rc1",
-    "excerpt": "DeepSeek-V4-Flash-Vision-Exp 上线，DeepSeek Harness 通过 rc.8 与 rc.1 补齐图片输入、子代理编排、视觉模型接入和沙箱安全。本文拆解这条视觉 Coding Agent 能力链路及升级边界。",
-    "seo_title": "DeepSeek V4 Vision 与 Harness rc.8 / rc.1 更新解读",
-    "seo_description": "解读 DeepSeek-V4-Flash-Vision-Exp、DeepSeek Harness v0.1.0-rc.8 与 v0.1.1-rc.1 的多模态输入、子代理、API、沙箱安全和升级注意事项。",
+    "excerpt": "DeepSeek-V4-Flash-Vision-Exp 上线，DeepSeek Harness 通过 rc.8、rc.1 与 rc.2 补齐图片输入、视觉模型接入、沙箱安全、Files API 复用和图片预处理。本文拆解这条视觉 Coding Agent 能力链路及升级边界。",
+    "seo_title": "DeepSeek V4 Vision Exp 与 Harness rc.8 / rc.1 / rc.2 更新解读",
+    "seo_description": "解读 DeepSeek-V4-Flash-Vision-Exp、DeepSeek Harness v0.1.0-rc.8、v0.1.1-rc.1 与 v0.1.1-rc.2 的多模态输入、Files API 复用、图片预处理和沙箱安全。",
     "verification_status": "valid",
     "tags": [
         "DeepSeek Harness",

@@ -1,18 +1,18 @@
-# 当 Coding Agent 开始看懂截图：DeepSeek V4 Vision 与 Harness rc.8 / rc.1 更新解读
+# 当 DeepSeek Harness 开始看懂截图：DeepSeek V4 Vision Exp与 Harness 0.1 rc.8 / 0.1.1 rc.1 / 0.1.1 rc.2 更新解读
 
-> 2026 年 8 月 19 日到 21 日，DeepSeek Harness 连续发布 v0.1.0-rc.8 与 v0.1.1-rc.1，DeepSeek API 同期上线实验性视觉理解模型 DeepSeek-V4-Flash-Vision-Exp。两次更新连起来看，重点不是“聊天框终于能上传图片”，而是 Coding Agent 开始拥有从看见、理解到执行、验证的完整视觉工作链路。
+> 2026 年 8 月 19 日到 21 日，DeepSeek Harness 连续发布 v0.1.0-rc.8、v0.1.1-rc.1 与 v0.1.1-rc.2，DeepSeek API 同期上线实验性视觉理解模型 DeepSeek-V4-Flash-Vision-Exp。三次更新连起来看，重点不是“聊天框终于能上传图片”，而是 Coding Agent 开始拥有从看见、理解到执行、验证的完整视觉工作链路。
 
 ![能够理解截图并连接代码、工具与验证结果的视觉 Coding Agent](https://denghy.cn/images/articles/deepseek-v4-flash-vision-harness/00-cover.jpg)
 
 过去的 Coding Agent 主要处理文本：需求、代码、终端输出、测试日志。遇到页面错位、设计稿、流程图或图表，通常还需要人先把视觉信息翻译成文字。
 
-DeepSeek-V4-Flash-Vision-Exp 与 DeepSeek Harness 最近两次更新改变的，正是这层输入边界。
+DeepSeek-V4-Flash-Vision-Exp 与 DeepSeek Harness 最近三次更新改变的，正是这层输入边界。
 
 模型可以理解图片，并不等于 Agent 已经能可靠完成视觉任务。图片怎样进入会话、怎样被命令和子代理引用、历史图片如何控制载荷、修改完成后怎样验证、什么时候必须让人确认，这些仍然需要 Harness 承担。
 
-## 两次更新其实是一条能力接力
+## 三次更新其实是一条能力接力
 
-如果只看版本号，rc.8 和 rc.1 像是两次普通的候选版更新。把功能放在同一条链路上看，它们的分工很清楚。
+如果只看版本号，rc.8、rc.1 和 rc.2 像是三次普通的候选版更新。把功能放在同一条链路上看，它们的分工很清楚。
 
 rc.8 先把多模态通道铺好：
 
@@ -26,7 +26,9 @@ rc.8 先把多模态通道铺好：
 
 rc.1 随后把 DeepSeek-V4-Flash-Vision-Exp 加入 DeepSeek 适配器。换句话说，rc.8 解决“图片怎样在 Harness 里流动”，rc.1 解决“由哪个 DeepSeek 模型真正理解图片”。
 
-![rc.8 建立多模态输入与编排通道，rc.1 接入视觉模型并加强安全](https://denghy.cn/images/articles/deepseek-v4-flash-vision-harness/01-release-handoff.jpg)
+rc.2 接着处理“图片怎样更高效地送进模型”：DeepSeek 适配器会优先通过 Files API 上传图像，并复用已经上传的文件；图像预处理流程会根据模型要求自动缩放并转换为合适格式。它没有增加新的视觉模型，却把重复传图、格式适配和尺寸处理进一步收进 Harness。
+
+![rc.8 建立多模态通道，rc.1 接入视觉模型并加强安全，rc.2 优化图片上传与预处理](https://denghy.cn/images/articles/deepseek-v4-flash-vision-harness/01-release-handoff.jpg)
 
 rc.1 的另一项更新值得单独强调：它修复了 Bubblewrap 沙箱内受限进程可能通过 `/proc/<pid>/root` 绕过限制的问题。对于能够读取图片、调用工具、修改代码的 Agent，安全边界不是附属体验，而是视觉能力真正进入工程环境的前提。
 
@@ -92,6 +94,8 @@ print(response.choices[0].message.content)
 
 Files API 本身不收费，适合多次复用同一张图片或避免重复上传大文件，但模型读取图片产生的 token 仍会计费。
 
+rc.2 正是把这项能力落实到 DeepSeek Harness 的适配器层：优先走 Files API，并尽量复用已经上传的图片。对包含设计稿、截图或多轮视觉验证的长任务来说，这比每轮重新内联同一份图片更符合工程实际。自动缩放和格式转换则减少了上游图片不满足模型要求时的手工预处理。
+
 ## 视觉 Agent 最值得落地的不是“看图聊天”
 
 真正有工程价值的场景，是让图片成为任务证据的一部分。
@@ -109,27 +113,27 @@ Files API 本身不收费，适合多次复用同一张图片或避免重复上�
 
 这个闭环里，视觉模型负责提出判断，确定性工具负责提供证据。截图可以告诉你“看起来哪里不对”，但不能单独证明 DOM 语义、权限、接口响应、键盘操作和移动端断点都正确。
 
-## 从 rc.6 或 rc.7 升级前，先做六件事
+## 升级到 rc.2 前，先做六件事
 
-第一，确认它仍是预发布版本。两个 Release 都标记为 prerelease，仓库 README 也明确说明当前处于开发者预览阶段，未来仍可能出现破坏兼容性的变化。
+第一，确认它仍是预发布版本。三个 Release 都标记为 prerelease，仓库 README 也明确说明当前处于开发者预览阶段，未来仍可能出现破坏兼容性的变化。
 
 第二，固定确切版本，不要让生产工作流自动追随 latest：
 
 ```bash
-npx @deepseek-ai/dsh@0.1.1-rc.1 web
+npx @deepseek-ai/dsh@0.1.1-rc.2 web
 ```
 
-第三，检查 Node.js。v0.1.1-rc.1 仓库根配置要求 Node.js `^22.19.0 || >=24.0.0`。
+第三，检查 Node.js。v0.1.1-rc.2 仓库根配置要求 Node.js `^22.19.0 || >=24.0.0`。
 
 第四，升级前备份会话数据。rc.8 的 Release 明确说明 SQLite 后端的数据结构不兼容；即使新实现改善了读写、分叉性能和存储体积，也不能跳过备份与回滚验证。
 
 第五，不要跳过安全版本。rc.1 包含 Bubblewrap 沙箱绕过修复；如果工作流允许 Agent 执行命令或写入文件，应把沙箱、工作区范围、凭据隔离和人工审批一起复测。
 
-第六，为图片建立预算和验证规则。限制图片数量与尺寸，按任务选择 `detail`，不要把视觉判断直接当作完成证据，并在长会话中监控历史图片载荷。
+第六，为图片建立预算和验证规则。限制图片数量与尺寸，按任务选择 `detail`，确认 Files API 文件复用符合项目的数据与凭据边界，不要把视觉判断直接当作完成证据，并在长会话中监控历史图片载荷。
 
 ## 最后
 
-DeepSeek-V4-Flash-Vision-Exp 让模型开始看见，rc.8 与 rc.1 则让 DeepSeek Harness 开始具备接住视觉输入、把它交给模型、编排执行并控制风险的基础设施。
+DeepSeek-V4-Flash-Vision-Exp 让模型开始看见，rc.8、rc.1 与 rc.2 则让 DeepSeek Harness 依次具备接住视觉输入、把它交给模型、控制安全边界，以及复用和预处理图片的基础设施。
 
 这比“增加一个图片上传按钮”重要得多。
 
@@ -141,6 +145,7 @@ DeepSeek-V4-Flash-Vision-Exp 让模型开始看见，rc.8 与 rc.1 则让 DeepSe
 
 - [DeepSeek Harness v0.1.0-rc.8 Release](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.0-rc.8)
 - [DeepSeek Harness v0.1.1-rc.1 Release](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.1-rc.1)
+- [DeepSeek Harness v0.1.1-rc.2 Release](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2)
 - [DeepSeek API 图像理解指南](https://api-docs.deepseek.com/zh-cn/guides/vision)
 - [DeepSeek Harness 更新：官方多模态支持](https://mp.weixin.qq.com/s/xw-hxtHMcxxSGqbSbp98RQ)
 - [V4-Flash-Vision-Exp 上线，开启多模态 API 服务](https://mp.weixin.qq.com/s/UGMfvPMwBIB4oFYZZejekA)
