@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MediaAssetController as AdminMediaAssetController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::post('/projects', [AdminProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}/edit', [AdminProjectController::class, 'edit'])->name('projects.edit');
     Route::patch('/projects/{project}', [AdminProjectController::class, 'update'])->name('projects.update');
+    Route::get('/media', [AdminMediaAssetController::class, 'index'])->name('media.index');
+    Route::post('/media', [AdminMediaAssetController::class, 'store'])->middleware('throttle:media-uploads')->name('media.store');
 });
 
 Route::any('/wechat', [WeChatController::class, 'serve']);

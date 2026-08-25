@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import AdminLayout from '../AdminLayout.vue';
 
 const props = defineProps({
@@ -12,9 +12,15 @@ const props = defineProps({
     publishAction: { type: String, default: null },
     archiveAction: { type: String, default: null },
     publicUrl: { type: String, default: null },
+    mediaUploadAction: { type: String, required: true },
 });
 
 const tagText = ref(props.article?.tags?.map((tag) => tag.name).join(', ') || '');
+const markdownTextarea = ref(null);
+const mediaFile = ref(null);
+const mediaAlt = ref('');
+const mediaUploading = ref(false);
+const mediaError = ref('');
 const form = useForm({
     title: props.revision?.title || '',
     slug: props.article?.slug || '',
@@ -42,6 +48,62 @@ const archive = () => {
     if (props.archiveAction && window.confirm('确认归档？')) router.post(props.archiveAction);
 };
 const error = (key) => form.errors[key] || '';
+
+const insertMarkdown = async (snippet) => {
+    const textarea = markdownTextarea.value;
+    const start = textarea?.selectionStart ?? form.markdown.length;
+    const end = textarea?.selectionEnd ?? start;
+    const before = form.markdown.slice(0, start);
+    const after = form.markdown.slice(end);
+    const prefix = before && !before.endsWith('\n') ? '\n\n' : '';
+    const suffix = after && !after.startsWith('\n') ? '\n\n' : '';
+
+    form.markdown = `${before}${prefix}${snippet}${suffix}${after}`;
+    await nextTick();
+    textarea?.focus();
+    const cursor = before.length + prefix.length + snippet.length;
+    textarea?.setSelectionRange(cursor, cursor);
+};
+
+const uploadMedia = async () => {
+    const file = mediaFile.value?.files?.[0];
+    if (!file) {
+        mediaError.value = '请先选择图片。';
+        return;
+    }
+
+    mediaUploading.value = true;
+    mediaError.value = '';
+    const body = new FormData();
+    body.append('image', file);
+    body.append('alt_text', mediaAlt.value);
+
+    try {
+        const response = await fetch(props.mediaUploadAction, {
+            method: 'POST',
+            body,
+            headers: {
+                Accept: 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+            },
+        });
+        const payload = await response.json();
+
+        if (!response.ok) {
+            const message = payload.message || Object.values(payload.errors || {}).flat()[0];
+            throw new Error(message || '图片上传失败。');
+        }
+
+        await insertMarkdown(payload.asset.markdown);
+        mediaFile.value.value = '';
+        mediaAlt.value = '';
+    } catch (uploadError) {
+        mediaError.value = uploadError.message || '图片上传失败。';
+    } finally {
+        mediaUploading.value = false;
+    }
+};
 </script>
 
 <template>
@@ -57,7 +119,15 @@ const error = (key) => form.errors[key] || '';
                 <label>标题<input v-model="form.title" required><small class="alert-danger">{{ error('title') }}</small></label>
                 <label>Slug<input v-model="form.slug" placeholder="laravel-release-notes" required><small>只使用小写字母、数字和连字符；变更后旧地址会写入 301 重定向。</small><small class="alert-danger">{{ error('slug') }}</small></label>
                 <label>摘要<textarea v-model="form.excerpt" rows="3" /><small class="alert-danger">{{ error('excerpt') }}</small></label>
-                <label>正文 Markdown<textarea v-model="form.markdown" rows="24" required /><small class="alert-danger">{{ error('markdown') }}</small></label>
+                <label>正文 Markdown<textarea ref="markdownTextarea" v-model="form.markdown" rows="24" required /><small class="alert-danger">{{ error('markdown') }}</small></label>
+                <div class="media-inline-uploader">
+                    <div><strong>插入远程图片</strong><small>上传后会在当前光标处插入 Markdown，不占用小程序发布包。</small></div>
+                    <input ref="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                    <input v-model="mediaAlt" maxlength="255" placeholder="图片说明（建议填写）">
+                    <button class="button button-quiet" type="button" :disabled="mediaUploading" @click="uploadMedia">{{ mediaUploading ? '上传中…' : '上传并插入' }}</button>
+                    <Link href="/admin/media" class="text-link">打开图片素材库 →</Link>
+                    <small v-if="mediaError" class="alert-danger">{{ mediaError }}</small>
+                </div>
             </div>
             <aside class="editor-side admin-panel">
                 <div class="editor-section-title"><span>02</span><div><strong>发布设置</strong><small>元数据与验证边界</small></div></div>

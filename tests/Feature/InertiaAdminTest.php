@@ -22,4 +22,16 @@ class InertiaAdminTest extends TestCase
                 ->where('pendingEvents', 0)
             );
     }
+
+    public function test_article_editor_exposes_the_media_upload_endpoint(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+
+        $this->actingAs($admin)
+            ->get(route('admin.articles.create'))
+            ->assertInertia(fn ($page) => $page
+                ->component('Admin/Articles/Form')
+                ->where('mediaUploadAction', route('admin.media.store'))
+            );
+    }
 }

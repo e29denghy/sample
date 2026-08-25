@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class MediaAsset extends Model
@@ -30,6 +31,12 @@ class MediaAsset extends Model
 
     public function url(): string
     {
-        return asset('storage/'.$this->path);
+        if ($this->source_url) {
+            return $this->source_url;
+        }
+
+        $url = Storage::disk($this->disk)->url($this->path);
+
+        return str_starts_with($url, '/') ? rtrim((string) config('app.url'), '/').$url : $url;
     }
 }

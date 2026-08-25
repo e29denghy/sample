@@ -25,6 +25,7 @@ const isActive = (path) => page.url === path || page.url.startsWith(`${path}/`);
                     <Link href="/admin" :class="{ 'is-active': page.url === '/admin' }">概览</Link>
                     <Link href="/admin/articles" :class="{ 'is-active': isActive('/admin/articles') }">文章</Link>
                     <Link href="/admin/projects" :class="{ 'is-active': isActive('/admin/projects') }">项目</Link>
+                    <Link href="/admin/media" :class="{ 'is-active': isActive('/admin/media') }">图片</Link>
                     <Link href="/logout" method="delete" as="button" class="link-button">退出</Link>
                 </nav>
             </div>

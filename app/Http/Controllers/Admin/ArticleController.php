@@ -107,6 +107,7 @@ class ArticleController extends Controller
             'publishAction' => $article->exists && $article->draftRevision ? route('admin.articles.publish', $article) : null,
             'archiveAction' => $article->exists ? route('admin.articles.archive', $article) : null,
             'publicUrl' => $article->exists && $article->isPublic() ? route('articles.show', $article->slug) : null,
+            'mediaUploadAction' => route('admin.media.store'),
         ];
     }
 }

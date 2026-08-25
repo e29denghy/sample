@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\MediaStorage;
+use App\Services\Media\LocalMediaStorage;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(MediaStorage::class, LocalMediaStorage::class);
     }
 
     /**
@@ -31,5 +33,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('api', fn (Request $request): Limit => Limit::perMinute(60)->by($request->ip()));
+
+        RateLimiter::for('media-uploads', fn (Request $request): Limit => Limit::perMinute(20)
+            ->by((string) ($request->user()?->id ?: $request->ip())));
     }
 }
