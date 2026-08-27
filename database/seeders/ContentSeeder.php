@@ -30,10 +30,18 @@ class ContentSeeder extends Seeder
         $projects = [];
 
         foreach ($this->projectData() as $data) {
-            $projects[$data['slug']] = Project::firstOrCreate(
-                ['slug' => $data['slug']],
-                [...$data, 'published_at' => now()],
-            );
+            $syncExisting = (bool) ($data['sync_existing'] ?? false);
+            unset($data['sync_existing']);
+
+            $project = Project::where('slug', $data['slug'])->first();
+
+            if ($project && $syncExisting) {
+                $project->fill($data)->save();
+            } else {
+                $project ??= Project::create([...$data, 'published_at' => now()]);
+            }
+
+            $projects[$data['slug']] = $project;
         }
 
         return $projects;
@@ -152,6 +160,7 @@ class ContentSeeder extends Seeder
             [
                 'name' => '福宝英语角 / Fobo',
                 'slug' => 'fobo-english-corner',
+                'sync_existing' => true,
                 'status' => 'released',
                 'summary' => '面向儿童的英语口语练习站，保留快捷句型练习，并新增邀请码准入的实时语音、字幕、打断和场景对话。',
                 'problem' => '儿童练习需要简单交互和即时语音反馈；实时模型上线后，还必须同时控制访问、费用、密钥、隐私、并发和最长会话。',

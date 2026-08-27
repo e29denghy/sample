@@ -48,4 +48,27 @@ class ContentSeederTest extends TestCase
             ->assertOk()
             ->assertJsonPath('source_url', 'https://github.com/walkinglabs/learn-harness-engineering');
     }
+
+    public function test_seed_refreshes_only_the_existing_fobo_project_release_metadata(): void
+    {
+        $project = Project::create([
+            'name' => '福宝英语角 / Fobo',
+            'slug' => 'fobo-english-corner',
+            'status' => 'mvp',
+            'summary' => '旧的本地验证说明',
+            'is_public' => true,
+            'published_at' => now()->subMonth(),
+        ]);
+        $publishedAt = $project->published_at;
+
+        $this->seed(ContentSeeder::class);
+
+        $project->refresh();
+
+        $this->assertSame('released', $project->status);
+        $this->assertStringContainsString('实时语音', $project->summary);
+        $this->assertStringContainsString('session.created', $project->evidence);
+        $this->assertTrue($publishedAt->equalTo($project->published_at));
+        $this->assertDatabaseCount('projects', 6);
+    }
 }
