@@ -1,0 +1,19 @@
+{
+    "title": "从 DeepSeek Harness 原型到生产站：福宝实时英语对话上线实录",
+    "slug": "fobo-realtime-voice-from-harness-to-production",
+    "excerpt": "Voice 原型已经具备实时字幕、打断和场景，但离生产上线仍差准入、配额、密钥隔离、部署和真实链路验证。这篇文章记录它如何整合进 Fobo，并发布到 voice.denghy.cn。",
+    "seo_title": "福宝实时英语对话：从 DeepSeek Harness 原型到生产上线",
+    "seo_description": "记录 Voice 实时语音原型整合进 Fobo 的完整生产发布：邀请码准入、原子配额、单次 Relay 票据、Docker 隔离、TLS 与真实 Qwen 链路验证。",
+    "verification_status": "valid",
+    "tags": [
+        "Fobo",
+        "Realtime Voice",
+        "Laravel",
+        "Qwen",
+        "Harness Engineering"
+    ],
+    "projects": [
+        "fobo-english-corner"
+    ],
+    "markdown_file": "database/content/fobo-realtime-voice-release.md"
+}

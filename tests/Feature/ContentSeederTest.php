@@ -17,8 +17,8 @@ class ContentSeederTest extends TestCase
         $this->seed(ContentSeeder::class);
 
         $this->assertDatabaseCount('projects', 6);
-        $this->assertDatabaseCount('articles', 7);
-        $this->assertDatabaseCount('article_revisions', 7);
+        $this->assertDatabaseCount('articles', 8);
+        $this->assertDatabaseCount('article_revisions', 8);
         $this->assertDatabaseHas('project_article', [
             'project_id' => Project::where('slug', 'kaiwu')->value('id'),
             'article_id' => Article::where('slug', 'kaiwu-agent-workbench-events-quests-approval')->value('id'),
@@ -28,13 +28,18 @@ class ContentSeederTest extends TestCase
             'source_url' => 'https://github.com/walkinglabs/learn-harness-engineering',
             'is_public' => true,
         ]);
+        $this->assertDatabaseHas('projects', [
+            'slug' => 'fobo-english-corner',
+            'status' => 'released',
+            'is_public' => true,
+        ]);
         $this->assertDatabaseHas('project_article', [
             'project_id' => Project::where('slug', 'learn-harness-engineering')->value('id'),
             'article_id' => Article::where('slug', 'learn-harness-engineering-open-source-course-guide')->value('id'),
         ]);
 
         $this->get(route('articles.index'))->assertOk()->assertSee('KAIWU：把跨 Agent 工作拆成事件、任务与审批');
-        $this->getJson(route('api.articles.index'))->assertOk()->assertJsonCount(7, 'data');
+        $this->getJson(route('api.articles.index'))->assertOk()->assertJsonCount(8, 'data');
         $this->get(route('projects.show', 'learn-harness-engineering'))
             ->assertOk()
             ->assertSee('查看开源仓库')

@@ -152,12 +152,12 @@ class ContentSeeder extends Seeder
             [
                 'name' => '福宝英语角 / Fobo',
                 'slug' => 'fobo-english-corner',
-                'status' => 'mvp',
-                'summary' => '面向儿童的轻量英语口语练习 MVP，使用 Laravel、Inertia、Vue 3 和语音服务。',
-                'problem' => '儿童练习需要足够简单的交互、明确的语音反馈和较大的触控目标，同时不能一开始就引入登录、多人和复杂游戏化。',
-                'decisions' => '保留五个主题和少量快捷句型；用 Ark 负责 ASR/TTS；使用 seed-tts-2.0 和对应音色；优先兼容旧 iPad Safari，并保留显式的“再听一遍”操作。',
-                'evidence' => '本地实现已完成 Laravel 13、Vue 3、Inertia、SQLite、Vite 以及真实 TTS 音频冒烟验证；正式 Valet HTTPS 仍需独立确认。',
-                'outcome' => '先把一次练习闭环做小、做可听见，再决定是否增加账号、记录和游戏化能力。',
+                'status' => 'released',
+                'summary' => '面向儿童的英语口语练习站，保留快捷句型练习，并新增邀请码准入的实时语音、字幕、打断和场景对话。',
+                'problem' => '儿童练习需要简单交互和即时语音反馈；实时模型上线后，还必须同时控制访问、费用、密钥、隐私、并发和最长会话。',
+                'decisions' => '保留原五主题英语角，在 /talk 增加实时对话；采用设备通行证、原子配额、单次 Relay 票据、同域 Nginx 分流和服务隔离；第一版默认不录音。',
+                'evidence' => '生产验证覆盖 24 个 PHP 测试、141 个断言、30 个前端测试、真实 Qwen session.created、票据重放拒绝、60 秒硬上限结算、TLS 和日志审计。',
+                'outcome' => 'voice.denghy.cn 已上线邀请测试；原英语角继续保留，实时链路独立运行，浏览器不接触 Qwen API Key。',
                 'is_public' => true,
                 'is_featured' => false,
                 'sort_order' => 40,
@@ -341,6 +341,7 @@ MD,
 
         $articles[] = $this->loadArticlePackage('learn-harness-engineering-guide');
         $articles[] = $this->loadArticlePackage('deepseek-v4-flash-vision-harness-rc8-rc1');
+        $articles[] = $this->loadArticlePackage('fobo-realtime-voice-release');
 
         return $articles;
     }
