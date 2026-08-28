@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\Project;
+use App\Models\User;
+use App\Services\ArticleManager;
 use Database\Seeders\ContentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -23,7 +25,11 @@ class FoboRealtimeVoiceReleaseArticlePackageTest extends TestCase
         $wechatMarkdown = file_get_contents(base_path('docs/wechat/fobo-realtime-voice-release.md'));
         $articleImageUrls = [
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/00-realtime-access.jpg',
+            'https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png',
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg',
+            'https://denghy.cn/images/articles/fobo-realtime-voice-release/03-realtime-conversation.png',
+            'https://denghy.cn/images/articles/fobo-realtime-voice-release/04-conversation-result.png',
+            'https://denghy.cn/images/articles/fobo-realtime-voice-release/05-realtime-reconnect-failure.png',
         ];
 
         $this->assertSame('fobo-realtime-voice-from-harness-to-production', $manifest['slug']);
@@ -34,6 +40,10 @@ class FoboRealtimeVoiceReleaseArticlePackageTest extends TestCase
         $this->assertStringContainsString('session.created', $markdown);
         $this->assertStringContainsString('ab055fc', $markdown);
         $this->assertStringContainsString('不公开发布邀请码', $markdown);
+        $this->assertStringContainsString('六个场景', $markdown);
+        $this->assertStringContainsString('真实运行中的 U3', $markdown);
+        $this->assertStringContainsString('1 分 48 秒练习时长', $markdown);
+        $this->assertStringContainsString('重连失败', $markdown);
         $this->assertDoesNotMatchRegularExpression('/[A-Z0-9]{4}(?:-[A-Z0-9]{4}){2}/', $markdown);
         $this->assertDoesNotMatchRegularExpression('/[A-Z0-9]{4}(?:-[A-Z0-9]{4}){2}/', $wechatMarkdown);
         $this->assertStringNotContainsString('*', $markdown);
@@ -42,12 +52,12 @@ class FoboRealtimeVoiceReleaseArticlePackageTest extends TestCase
         $this->assertStringNotContainsString('摘要：', $wechatMarkdown);
 
         preg_match_all(
-            '#https://denghy\.cn/images/articles/fobo-realtime-voice-release/[a-z0-9-]+\.jpg#',
+            '#https://denghy\.cn/images/articles/fobo-realtime-voice-release/[a-z0-9-]+\.(?:jpg|png)#',
             $markdown,
             $markdownImageUrls,
         );
         preg_match_all(
-            '#https://denghy\.cn/images/articles/fobo-realtime-voice-release/[a-z0-9-]+\.jpg#',
+            '#https://denghy\.cn/images/articles/fobo-realtime-voice-release/[a-z0-9-]+\.(?:jpg|png)#',
             $wechatMarkdown,
             $wechatImageUrls,
         );
@@ -87,5 +97,46 @@ class FoboRealtimeVoiceReleaseArticlePackageTest extends TestCase
         $this->get(route('feeds.rss'))
             ->assertOk()
             ->assertSee('福宝实时英语对话');
+    }
+
+    public function test_existing_fobo_article_can_publish_the_screenshot_revision(): void
+    {
+        $this->seed(ContentSeeder::class);
+
+        $manifest = json_decode(
+            file_get_contents(database_path('content/fobo-realtime-voice-release.json')),
+            true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+        $data = $manifest;
+        unset($data['markdown_file']);
+        $data['markdown'] = file_get_contents(base_path($manifest['markdown_file']));
+
+        $article = Article::where('slug', $manifest['slug'])->firstOrFail();
+        $admin = User::factory()->create([
+            'is_admin' => true,
+            'activated' => true,
+        ]);
+        $manager = app(ArticleManager::class);
+
+        $draft = $manager->saveDraft($article, $data, $admin);
+        $manager->publish($draft, $admin);
+
+        $article->refresh()->load('publishedRevision');
+
+        $this->assertSame(2, $article->publishedRevision->version);
+        $this->assertSame(hash('sha256', $data['markdown']), $article->publishedRevision->content_hash);
+        $this->assertStringContainsString('03-realtime-conversation.png', $article->publishedRevision->markdown);
+        $this->assertStringContainsString('04-conversation-result.png', $article->publishedRevision->markdown);
+        $this->assertStringContainsString('05-realtime-reconnect-failure.png', $article->publishedRevision->markdown);
+        $this->assertDatabaseHas('outbox_events', [
+            'aggregate_id' => $article->id,
+            'aggregate_version' => 2,
+            'event_type' => 'ArticlePublished',
+        ]);
+        $this->assertDatabaseHas('audit_logs', [
+            'auditable_id' => $article->id,
+            'action' => 'article.published',
+        ]);
     }
 }

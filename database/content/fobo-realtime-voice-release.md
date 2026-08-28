@@ -12,6 +12,10 @@ Fobo 原来是一个小而简单的英语角：五个主题、六个快捷句型
 
 Voice 则已经走到了另一条路：它有实时 WebSocket 对话、字幕、打断、场景、会话、配额、录音和管理端。两边技术栈相近，但产品边界、状态模型和运行依赖并不相同。
 
+![实时语音测试页提供六个教材场景，当前选中 U3 寻找玩具](https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png)
+
+实时入口不是一个空白聊天框。当前测试版提供五感魔法秀、家庭聚会、寻找玩具、我家附近、农场之旅和中秋节六个场景，每个场景带有词汇、句型和难度提示，孩子点击卡片即可开始。
+
 ![原 Fobo 英语角：首页、主题与快捷句型继续保留](https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg)
 
 所以第一步不是合并文件，而是 Review。
@@ -107,6 +111,20 @@ HTTP 200 只能证明页面能打开，不能证明实时语音能用。
 - 60 秒测试会话被服务端硬上限自动结束，并准确结算 60 秒；
 - HTTP 正确跳转 HTTPS，证书和自动续期正常；
 - `/ws` 关闭访问日志，Laravel、Relay 和 Nginx 日志未发现密钥或票据泄露。
+
+![U3 寻找玩具真实运行状态：连续字幕、AI 追问、监听状态和剩余额度](https://denghy.cn/images/articles/fobo-realtime-voice-release/03-realtime-conversation.png)
+
+这张图来自一次真实运行中的 U3“寻找玩具”练习。页面连续显示孩子的英文字幕和 AI 老师的追问，顶部同时保留监听状态、会话计时和当日剩余额度。画面中仍出现“还没听到你的声音”提示，因此它不是一张刻意整理过的无异常宣传图；这说明实时链路正在工作，也如实保留了当时的麦克风拾音提示。
+
+![U3 寻找玩具练习结果：1 分 48 秒、5 次开口、10 句对话和目标词汇](https://denghy.cn/images/articles/fobo-realtime-voice-release/04-conversation-result.png)
+
+同一次练习结束后，结果页给出四星评价，并回读了 1 分 48 秒练习时长、5 次开口、10 句对话、目标词汇和当日剩余 3 分 12 秒。它把“页面能对话”继续推进到“会话能结束、指标能结算、结果能展示”的完整闭环。
+
+![另一次 U3 寻找玩具真实对话：字幕、AI 回复与重连失败提示](https://denghy.cn/images/articles/fobo-realtime-voice-release/05-realtime-reconnect-failure.png)
+
+另一轮真实练习在会话后段发生了重连失败，截图同样没有把错误裁掉：界面明确提示结束本次练习后重试，也没有在断线后继续伪装成正在收音。
+
+这张异常现场与前面的正常对话、结果页相互独立。前两张证明实时字幕、AI 回复和结算闭环已经工作，这张则证明异常状态能够被用户看见；连接为什么中断，仍需要结合 Relay 和浏览器日志独立诊断。
 
 浏览器验收还发现了一个自动测试没有抓到的问题：实时页面左上角仍残留狐狸头像。修复后再次发布和回读，Fobo 的小熊猫品牌才真正统一。
 
