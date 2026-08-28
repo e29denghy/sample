@@ -10,13 +10,13 @@
 
 Fobo 原来是一个小而简单的英语角：五个主题、六个快捷句型，一次请求得到一次文字和语音回复。它使用 Laravel、Inertia、Vue 3、SQLite 和 Vite，重点是让孩子能快速完成“听见、开口、得到反馈”的练习闭环。
 
+![原 Fobo 英语角：首页、主题与快捷句型继续保留](https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg)
+
 Voice 则已经走到了另一条路：它有实时 WebSocket 对话、字幕、打断、场景、会话、配额、录音和管理端。两边技术栈相近，但产品边界、状态模型和运行依赖并不相同。
 
 ![实时语音测试页提供六个教材场景，当前选中 U3 寻找玩具](https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png)
 
 实时入口不是一个空白聊天框。当前测试版提供五感魔法秀、家庭聚会、寻找玩具、我家附近、农场之旅和中秋节六个场景，每个场景带有词汇、句型和难度提示，孩子点击卡片即可开始。
-
-![原 Fobo 英语角：首页、主题与快捷句型继续保留](https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg)
 
 所以第一步不是合并文件，而是 Review。
 

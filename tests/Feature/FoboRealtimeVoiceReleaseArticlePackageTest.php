@@ -25,8 +25,8 @@ class FoboRealtimeVoiceReleaseArticlePackageTest extends TestCase
         $wechatMarkdown = file_get_contents(base_path('docs/wechat/fobo-realtime-voice-release.md'));
         $articleImageUrls = [
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/00-realtime-access.jpg',
-            'https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png',
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg',
+            'https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png',
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/03-realtime-conversation.png',
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/04-conversation-result.png',
             'https://denghy.cn/images/articles/fobo-realtime-voice-release/05-realtime-reconnect-failure.png',

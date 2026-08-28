@@ -12,13 +12,13 @@
 
 Fobo 原来是一个小而简单的英语角：五个主题、六个快捷句型，一次请求得到一次文字和语音回复。它重点解决的是“听见、开口、得到反馈”这个最小练习闭环。
 
+![原 Fobo 英语角：首页、主题与快捷句型继续保留](https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg)
+
 Voice 则已经有实时 WebSocket 对话、字幕、打断、场景、会话、配额、录音和管理端。两边都是 Laravel 和 Vue，但产品边界、状态模型和运行依赖完全不同。
 
 ![实时语音测试页提供六个教材场景，当前选中 U3 寻找玩具](https://denghy.cn/images/articles/fobo-realtime-voice-release/02-scenario-gallery.png)
 
 实时入口不是一个空白聊天框。测试版提供五感魔法秀、家庭聚会、寻找玩具、我家附近、农场之旅和中秋节六个场景，每个场景带有词汇、句型和难度提示，孩子点击卡片即可开始。
-
-![原 Fobo 英语角：首页、主题与快捷句型继续保留](https://denghy.cn/images/articles/fobo-realtime-voice-release/01-original-english-corner.jpg)
 
 所以整合前先做 Review。
 
