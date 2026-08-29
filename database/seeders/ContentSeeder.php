@@ -351,6 +351,7 @@ MD,
         $articles[] = $this->loadArticlePackage('learn-harness-engineering-guide');
         $articles[] = $this->loadArticlePackage('deepseek-v4-flash-vision-harness-rc8-rc1');
         $articles[] = $this->loadArticlePackage('fobo-realtime-voice-release');
+        $articles[] = $this->loadArticlePackage('kaiwu-deepseek-harness-adapter');
 
         return $articles;
     }

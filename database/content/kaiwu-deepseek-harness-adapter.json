@@ -1,0 +1,19 @@
+{
+    "title": "开物如何适配 DeepSeek Harness：把 AI 执行接入人工批准的工作台",
+    "slug": "kaiwu-deepseek-harness-human-approved-adapter",
+    "excerpt": "开物没有把 DeepSeek Harness 直接塞进 Web 请求，而是用进程隔离的 Bridge、版本化 Quest/Event 协议和人工批准门禁，把 AI 执行能力接进一条可审计、可失败关闭的工作流。",
+    "seo_title": "开物适配 DeepSeek Harness：人工批准、协议边界与进程隔离",
+    "seo_description": "介绍开物 KAIWU 如何通过 kaiwu.quest/v1、kaiwu.event/v1 和独立 Bridge 适配 DeepSeek Harness，并说明权限映射、幂等回写、预览版本固定与验证边界。",
+    "verification_status": "valid",
+    "tags": [
+        "KAIWU",
+        "DeepSeek Harness",
+        "AI Agent",
+        "Harness Adapter",
+        "人工批准"
+    ],
+    "projects": [
+        "kaiwu"
+    ],
+    "markdown_file": "database/content/kaiwu-deepseek-harness-adapter.md"
+}
