@@ -26,8 +26,13 @@ class AgiIsComingArticlePackageTest extends TestCase
         $this->assertStringStartsWith('# Fable 5.1 发布，AGI 要来了？先别急', $wechatMarkdown);
         $this->assertStringContainsString($coverUrl, $markdown);
         $this->assertStringContainsString($coverUrl, $wechatMarkdown);
-        $this->assertStringContainsString('也就是大家口中的“ChatGPT 6”这一代', $markdown);
+        $this->assertStringContainsString('基本就是大家所说的“ChatGPT 6”这一代', $markdown);
         $this->assertStringContainsString('Qwen4 架构的早期预览', $markdown);
+        $this->assertStringContainsString('缓存读取价格比 Fable 5 低 75%', $markdown);
+        $this->assertStringContainsString('Astra 的拒绝率是 91.5%', $markdown);
+        $this->assertStringContainsString('能说“会来”，不能替官方写日期', $markdown);
+        $this->assertStringContainsString('不能写成“马上开源”', $markdown);
+        $this->assertStringContainsString('开放权重也不自动等于完整开源', $markdown);
         $this->assertStringContainsString('不是第二天早晨', $markdown);
         $this->assertStringNotContainsString('AGI 已经到来', $markdown);
         $this->assertFileExists(public_path('images/articles/agi-is-coming/00-cover.png'));
