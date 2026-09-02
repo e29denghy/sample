@@ -1,4 +1,4 @@
-# AGI 要来了？先别急
+# Fable 5.1 发布，AGI 要来了？先别急
 
 ![几条模型路线正在汇合，但终点仍在雾里](https://denghy.cn/images/articles/agi-is-coming/00-cover.png)
 
@@ -16,13 +16,13 @@ Claude 官方给出的数字很亮眼：Terminal-Bench-Science 从 Fable 5 的 2
 
 这比某个榜单第一更接近 AGI 的味道。
 
-## “ChatGPT 6”还只是传闻，Astra 不是
+## Astra，就是大家说的“ChatGPT 6”吗？
 
-截至 2026 年 9 月 2 日，OpenAI 没有公布 GPT-6 或“ChatGPT 6”的正式发布日期。当前公开旗舰仍是 GPT-5.6。网上流传的 9 月窗口，可以讨论，不能写成事实。
+如果按产品代际看，基本可以这么理解：Astra 是 OpenAI 正在准备发布的新一代前沿模型，也就是大家口中的“ChatGPT 6”这一代。准确地说，官方这次使用的名字就是 Astra，没有称它 GPT-6，也没给出正式发布日期。当前公开旗舰仍是 GPT-5.6，网上流传的 9 月窗口只能当参考。
 
-但 OpenAI 9 月 1 日公开的 Astra 已经足够重磅。官方称 Astra 将“很快”开放，并把它列为首个达到 Critical 网络安全能力阈值的模型：在合适工具和权限下，它能发现未知漏洞、组合利用链，在没有人逐步指导的情况下完成攻击任务。OpenAI 也因此推迟了部分训练和发布，先补安全措施。
+OpenAI 9 月 1 日公开的信息已经足够重磅。官方称 Astra 将“很快”开放，并把它列为首个达到 Critical 网络安全能力阈值的模型：在合适工具和权限下，它能发现未知漏洞、组合利用链，在没有人逐步指导的情况下完成攻击任务。OpenAI 也因此推迟了部分训练和发布，先补安全措施。
 
-这不是 GPT-6 的官宣，却比型号猜谜更有信息量。下一代模型的分水岭，很可能不是“更会回答”，而是“能否长时间行动，以及行动时是否守边界”。
+所以，纠结它最后叫 Astra 还是 GPT-6，反而没那么重要。真正的分水岭，很可能不是“更会回答”，而是“能否长时间行动，以及行动时是否守边界”。
 
 ## 国产开源模型已经挤进同一条赛道
 
@@ -50,6 +50,7 @@ Kimi K3 开放了 2.8T MoE 权重，把原生多模态、编程、知识工作�
 
 - [Dan 的 Fable 5.1 评测转述](https://x.com/DanDr1s/status/2094849078190387614)
 - [Claude Fable 5.1 官方发布线程](https://x.com/claudeai/status/2094848572143407483)
+- [OpenAI：正在准备发布 Astra](https://x.com/OpenAI/status/2094885578173260259)
 - [OpenAI：Path to Astra](https://openai.com/index/path-to-astra/)
 - [OpenAI GPT-5.6 与 ChatGPT 更新记录](https://learn.chatgpt.com/docs/whats-new)
 - [Kimi K3 官方发布](https://x.com/Kimi_Moonshot/status/2077830229968683203)

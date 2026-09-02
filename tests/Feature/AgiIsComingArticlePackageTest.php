@@ -22,11 +22,11 @@ class AgiIsComingArticlePackageTest extends TestCase
         $wechatMarkdown = file_get_contents(base_path('docs/wechat/agi-is-coming.md'));
         $coverUrl = 'https://denghy.cn/images/articles/agi-is-coming/00-cover.png';
 
-        $this->assertSame('AGI 要来了？先别急', $manifest['title']);
-        $this->assertStringStartsWith('# AGI 要来了？先别急', $wechatMarkdown);
+        $this->assertSame('Fable 5.1 发布，AGI 要来了？先别急', $manifest['title']);
+        $this->assertStringStartsWith('# Fable 5.1 发布，AGI 要来了？先别急', $wechatMarkdown);
         $this->assertStringContainsString($coverUrl, $markdown);
         $this->assertStringContainsString($coverUrl, $wechatMarkdown);
-        $this->assertStringContainsString('没有公布 GPT-6', $markdown);
+        $this->assertStringContainsString('也就是大家口中的“ChatGPT 6”这一代', $markdown);
         $this->assertStringContainsString('Qwen4 架构的早期预览', $markdown);
         $this->assertStringContainsString('不是第二天早晨', $markdown);
         $this->assertStringNotContainsString('AGI 已经到来', $markdown);
@@ -53,6 +53,6 @@ class AgiIsComingArticlePackageTest extends TestCase
 
         $this->get(route('feeds.rss'))
             ->assertOk()
-            ->assertSee('AGI 要来了？先别急');
+            ->assertSee('Fable 5.1 发布，AGI 要来了？先别急');
     }
 }
