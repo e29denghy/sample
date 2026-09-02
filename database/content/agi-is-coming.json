@@ -1,0 +1,17 @@
+{
+    "title": "AGI 要来了？先别急",
+    "slug": "agi-is-coming",
+    "excerpt": "Fable 5.1、Astra 和国产开源模型都在加速，但会做长任务，还不等于可以放心托付。AGI 也许正在靠近，只是不是以发布会倒计时的方式。",
+    "seo_title": "AGI 要来了？从 Fable 5.1、Astra 与国产开源模型看真实距离",
+    "seo_description": "结合 Claude Fable 5.1、OpenAI Astra、Kimi K3、GLM-5.3、Qwen3.8-Flash 与 DeepSeek V4 的发布节奏，判断 AGI 是否正在靠近。",
+    "verification_status": "valid",
+    "tags": [
+        "AGI",
+        "Fable 5.1",
+        "Astra",
+        "开源模型",
+        "AI Agent"
+    ],
+    "projects": [],
+    "markdown_file": "database/content/agi-is-coming.md"
+}
