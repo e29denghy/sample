@@ -18,7 +18,7 @@ class AstraReleaseArticlePackageTest extends TestCase
         $data['markdown'] = file_get_contents(base_path($data['markdown_file']));
         $this->assertSame('# '.$data['title']."\n\n".$data['markdown'], file_get_contents(base_path('docs/wechat/gpt-6-astra-release.md')));
         $this->assertSame([], $data['projects']);
-        $this->assertStringContainsString('本站没有完成自己的 Astra 对照测试', $data['markdown']);
+        $this->assertStringContainsString('我还没有完成 Astra 的对照测试', $data['markdown']);
         $this->assertStringContainsString('每任务成本比 Sol 高约 75%', $data['markdown']);
         $this->assertStringNotContainsString('| ---', $data['markdown']);
         $this->assertFileExists(public_path($data['cover']['path']));
