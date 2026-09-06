@@ -1,9 +1,9 @@
 {
     "title": "GPT-6 Astra 发布：哪些工作值得重新交给它？",
     "slug": "gpt-6-astra-release",
-    "excerpt": "官方演示把电脑操作推到了前台，独立评测却显示成本收益因任务而异。结合媒体报道与上手案例，看 Astra 适合接手哪些工作，以及升级前该验证什么。",
-    "seo_title": "GPT-6 Astra 发布解读：能力、独立评测、价格与开发者升级",
-    "seo_description": "结合 OpenAI 官方资料、WIRED、The Verge、Artificial Analysis 与 How I AI，分析 GPT-6 Astra 的电脑操作、编码效率、API 成本和接入限制。",
+    "excerpt": "先选一个 Laravel 问题、一段网页发布流程和一份教材草稿，明确输入、交付物与验收。根据公开评测挑任务，用实际费用和人工返工决定是否扩大使用。",
+    "seo_title": "GPT-6 Astra 值得升级吗：开发者的三个试用任务与验收方法",
+    "seo_description": "面向个人开发者和小团队的 GPT-6 Astra 试用方案：Laravel 排错、网页流程测试、教材整理，以及环境准备、费用记录、验收和 API 接入注意事项。",
     "verification_status": "valid",
     "tags": [
         "OpenAI",

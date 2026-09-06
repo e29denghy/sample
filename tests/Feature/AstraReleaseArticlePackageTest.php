@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\MediaAsset;
 use App\Models\User;
 use App\Services\ArticleManager;
+use App\Services\MarkdownRenderer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,6 +32,20 @@ class AstraReleaseArticlePackageTest extends TestCase
         $article = $manager->publish($article, $actor);
         $this->assertSame(hash('sha256', $data['markdown']), $article->publishedRevision->content_hash);
         $this->assertSame(0, $article->projects()->count());
+        $html = $article->publishedRevision->rendered_html;
+        $this->assertStringContainsString('id="三个试用任务"', $html);
+        $this->assertStringContainsString('href="#三个试用任务"', rawurldecode($html));
+        $this->assertStringContainsString('class="footnote-backref"', $html);
+        $dom = new \DOMDocument;
+        @$dom->loadHTML('<?xml encoding="UTF-8">'.$html);
+        $xpath = new \DOMXPath($dom);
+        foreach ($xpath->query('//a[starts-with(@href, "#")]') as $link) {
+            $id = rawurldecode(substr($link->getAttribute('href'), 1));
+            $this->assertSame(1, $xpath->query('//*[@id="'.$id.'"]')->length, 'Missing or duplicate fragment: '.$id);
+        }
+        $safeHtml = app(MarkdownRenderer::class)->render('<script>alert(1)</script>'."\n\n".'[unsafe](javascript:alert%281%29)');
+        $this->assertStringNotContainsString('<script', $safeHtml);
+        $this->assertStringNotContainsString('href="javascript:', $safeHtml);
         $this->get(route('articles.show', $article->slug))->assertOk()->assertSee($data['title'])->assertSee('artificialanalysis.ai/articles/benchmarking-gpt-6-astra', false);
         $this->getJson(route('api.articles.show', ['identifier' => $article->slug]))->assertOk()->assertJsonPath('slug', $data['slug'])->assertJsonPath('revision_version', 1)->assertJsonPath('share_image', $data['cover']['source_url']);
         $this->get(route('feeds.rss'))->assertOk()->assertSee($data['title'])->assertSee($data['cover']['source_url'], false);
