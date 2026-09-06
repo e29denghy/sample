@@ -1,0 +1,13 @@
+# GPT-6 Astra 发布文章证据记录
+
+核对日期：2026-09-06。文章包：`gpt-6-astra-release`。
+
+主判断：先重测电脑操作与编码长任务；不同任务的成本收益并不一致，不建议由发布榜单直接推导全量替换。
+
+已阅读原文：OpenAI 发布页、Using GPT-6 Astra 开发文档；WIRED Maxwell Zeff 发布报道；The Verge Hayden Field 发布报道；Artificial Analysis 2026-09-03 评测；Claire Vo 在 ChatPRD / How I AI 的早期上手文章。完整链接保存在公开文章的资料来源中。
+
+来源分类：前两家主流媒体没有在所读文章中提供独立对照实测，故只用来说明发布简报与安全问题；量化对照来自独立评测机构 Artificial Analysis，实际软件操作案例来自 How I AI。未将其称为主流媒体盲测。Lenny's Newsletter 页面读取超时，未作为引用。
+
+口径核对：OSWorld 是离线子集、部分得分，时间为延迟模拟；Terminal-Bench 数字是官方报告；AA 引用 9 月 3 日文章的指数口径，未混用后续 v4.2；价格算例为假设并排除缓存、工具等费用；未声称本站实测或全部账户已开放。
+
+编辑检查：网站 Markdown 与微信公众号 Markdown 仅差首行标题；无 Markdown 表格；无虚构亲历；发布为新的独立文章，不更改此前 AGI 文章的历史修订。无需项目关联或新图片。

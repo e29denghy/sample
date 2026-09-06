@@ -353,6 +353,7 @@ MD,
         $articles[] = $this->loadArticlePackage('fobo-realtime-voice-release');
         $articles[] = $this->loadArticlePackage('kaiwu-deepseek-harness-adapter');
         $articles[] = $this->loadArticlePackage('agi-is-coming');
+        $articles[] = $this->loadArticlePackage('gpt-6-astra-release');
 
         return $articles;
     }
