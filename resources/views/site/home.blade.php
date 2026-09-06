@@ -10,7 +10,7 @@
 <section class="hero shell">
     <div class="hero-content">
         <p class="eyebrow">邓红宇的开发笔记</p>
-        <h1><span class="hero-line hero-line-ink">我做 AI 教学产品，</span><span class="hero-line hero-line-accent">也写代码。</span></h1>
+        <h1><span class="hero-line hero-line-ink">把复杂流程，</span><span class="hero-line hero-line-accent">做成可验证的系统。</span></h1>
         <p class="hero-copy">这里记录教学资源平台、英语对话工具和 Laravel 项目的开发过程：遇到了什么问题，为什么这样改，上线后又发现了什么。</p>
         <div class="hero-actions"><a class="button button-primary" href="{{ route('projects.index') }}">看看我做的项目 <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="{{ route('articles.index') }}">读最近的文章</a></div>
         <ul class="capability-list" aria-label="关注领域"><li>AI 教学</li><li>教学资源</li><li>Laravel</li></ul>

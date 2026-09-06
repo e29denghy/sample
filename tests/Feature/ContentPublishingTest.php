@@ -56,8 +56,8 @@ class ContentPublishingTest extends TestCase
             ->assertSee('程序员的个人修养')
             ->assertSee('粤ICP备18024712号')
             ->assertSee('https://beian.miit.gov.cn/')
-            ->assertSee('我做 AI 教学产品')
-            ->assertSee('也写代码')
+            ->assertSee('把复杂流程')
+            ->assertSee('做成可验证的系统')
             ->assertDontSee('SYSTEM TRACE')
             ->assertDontSee('已验证');
     }
