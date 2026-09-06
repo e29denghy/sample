@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\MediaAsset;
 use App\Models\User;
 use App\Services\ArticleManager;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,6 +21,9 @@ class AstraReleaseArticlePackageTest extends TestCase
         $this->assertStringContainsString('本站没有完成自己的 Astra 对照测试', $data['markdown']);
         $this->assertStringContainsString('每任务成本比 Sol 高约 75%', $data['markdown']);
         $this->assertStringNotContainsString('| ---', $data['markdown']);
+        $this->assertFileExists(public_path($data['cover']['path']));
+        $this->assertSame($data['cover']['content_hash'], hash_file('sha256', public_path($data['cover']['path'])));
+        $data['cover_media_id'] = MediaAsset::create($data['cover'])->id;
         $actor = User::factory()->create();
         $manager = app(ArticleManager::class);
         $article = $manager->saveDraft(null, $data, $actor);
@@ -28,8 +32,8 @@ class AstraReleaseArticlePackageTest extends TestCase
         $this->assertSame(hash('sha256', $data['markdown']), $article->publishedRevision->content_hash);
         $this->assertSame(0, $article->projects()->count());
         $this->get(route('articles.show', $article->slug))->assertOk()->assertSee($data['title'])->assertSee('artificialanalysis.ai/articles/benchmarking-gpt-6-astra', false);
-        $this->getJson(route('api.articles.show', ['identifier' => $article->slug]))->assertOk()->assertJsonPath('slug', $data['slug'])->assertJsonPath('revision_version', 1);
-        $this->get(route('feeds.rss'))->assertOk()->assertSee($data['title']);
+        $this->getJson(route('api.articles.show', ['identifier' => $article->slug]))->assertOk()->assertJsonPath('slug', $data['slug'])->assertJsonPath('revision_version', 1)->assertJsonPath('share_image', $data['cover']['source_url']);
+        $this->get(route('feeds.rss'))->assertOk()->assertSee($data['title'])->assertSee($data['cover']['source_url'], false);
         $this->assertDatabaseCount('articles', 1);
         $this->assertDatabaseCount('article_revisions', 1);
         $this->assertDatabaseCount('outbox_events', 1);

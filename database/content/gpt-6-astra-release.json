@@ -11,5 +11,18 @@
         "AI Agent"
     ],
     "projects": [],
-    "markdown_file": "database/content/gpt-6-astra-release.md"
+    "markdown_file": "database/content/gpt-6-astra-release.md",
+    "cover": {
+        "disk": "public",
+        "path": "images/articles/gpt-6-astra-release/00-cover.png",
+        "source_url": "https://denghy.cn/images/articles/gpt-6-astra-release/00-cover.png",
+        "original_name": "00-cover.png",
+        "mime_type": "image/png",
+        "size": 2169324,
+        "width": 1672,
+        "height": 941,
+        "content_hash": "1a8cebc3a292a80214b7653f518493ebf89a3eee9a85cde86438e3a58f73c1e3",
+        "alt_text": "GPT-6 Astra：哪些工作值得重新交给它？",
+        "copyright": "AI 生成插画，denghy.cn"
+    }
 }

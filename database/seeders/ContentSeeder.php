@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Article;
 use App\Models\ArticleRevision;
 use App\Models\AuditLog;
+use App\Models\MediaAsset;
 use App\Models\OutboxEvent;
 use App\Models\Project;
 use App\Models\Tag;
@@ -67,6 +68,7 @@ class ContentSeeder extends Seeder
             $revision = ArticleRevision::create([
                 'article_id' => $article->id,
                 'version' => 1,
+                'cover_media_id' => isset($data['cover']) ? MediaAsset::firstOrCreate(['content_hash' => $data['cover']['content_hash']], $data['cover'])->id : null,
                 'title' => $data['title'],
                 'excerpt' => $data['excerpt'],
                 'markdown' => $markdown,
