@@ -56,10 +56,10 @@ class ContentPublishingTest extends TestCase
             ->assertSee('程序员的个人修养')
             ->assertSee('粤ICP备18024712号')
             ->assertSee('https://beian.miit.gov.cn/')
-            ->assertSee('把复杂流程')
-            ->assertSee('可验证的系统')
-            ->assertSeeInOrder(['问题', '约束', '决策', '验证', '上线'])
-            ->assertDontSee('把复杂的 AI、内容与业务流程，做成可验证、可发布、可维护的系统。');
+            ->assertSee('我做 AI 教学产品')
+            ->assertSee('也写代码')
+            ->assertDontSee('SYSTEM TRACE')
+            ->assertDontSee('已验证');
     }
 
     public function test_shared_visual_language_reaches_public_and_auth_pages(): void

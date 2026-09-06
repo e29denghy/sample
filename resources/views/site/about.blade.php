@@ -1,15 +1,16 @@
 @extends('layouts.site')
-@section('title', 'About · 程序员的个人修养 / 工程现场')
+@section('title', '关于 · 程序员的个人修养 / 工程现场')
+@section('description', '我是邓红宇，做 AI 教学产品，也用 Laravel 和 Vue 开发应用。这里记录项目里的问题、选择和结果。')
 @section('content')
-<section class="shell page-intro page-intro-grid about-intro"><div><p class="eyebrow">ABOUT / 关于本站</p><h1>在复杂系统里，<br>保留清晰的证据。</h1></div><p>我在 AI 教学、内容生产与 Laravel 工程的交叉处工作。关注的不只是功能完成，而是问题、边界、证据、发布和回滚能否形成完整闭环。</p></section>
+<section class="shell page-intro page-intro-grid about-intro"><div><p class="eyebrow">关于</p><h1>你好，我是邓红宇。</h1></div><p>我做 AI 教学产品，也用 Laravel 和 Vue 开发应用。教学资源怎么找到、孩子怎么开始一次英语练习、AI 任务怎么交给工具执行，都是这些项目里需要解决的问题。</p></section>
 <section class="shell section-block about-grid">
-    <div class="about-statement"><p class="eyebrow">WHAT I DOCUMENT</p><h2>这里记录可复用的工程脉络</h2><p>从一项真实约束开始，说明如何判断、如何上线，以及哪些部分仍需继续验证。</p></div>
+    <div class="about-statement"><p class="eyebrow">写在这里</p><h2>把做项目时的选择记下来</h2><p>这个网站收集我的开发记录和技术阅读笔记。我会写出问题出现的条件、尝试过的办法，以及最后为什么这样做。涉及模型评测时注明资料来源；项目测试做到哪一步，就说明到哪一步。</p></div>
     <div class="focus-list">
-        <article><span>01</span><div><h3>让 AI 可评估</h3><p>检索、权限、成本和生成兜底。</p></div></article>
-        <article><span>02</span><div><h3>让内容可发布</h3><p>来源、审核、Manifest、Outbox 和对账。</p></div></article>
-        <article><span>03</span><div><h3>让系统可上线</h3><p>Laravel、多租户、部署和生产复盘。</p></div></article>
-        <article><span>04</span><div><h3>让工作可积累</h3><p>项目记忆、任务执行和个人产品实验。</p></div></article>
+        <article><span>01</span><div><h3><a href="{{ route('projects.show', 'interapi') }}">InterAPI / 知阅录</a></h3><p>管理课程和教学资源，处理搜索、播放与使用权限。</p></div></article>
+        <article><span>02</span><div><h3><a href="{{ route('projects.show', 'fobo-english-corner') }}">福宝英语角</a></h3><p>给孩子提供英语句型和场景练习，逐步加入实时语音对话。</p></div></article>
+        <article><span>03</span><div><h3><a href="{{ route('projects.show', 'kaiwu') }}">KAIWU / 开物</a></h3><p>整理交给 AI 的任务，记录批准、执行结果和失败后的重试。</p></div></article>
+        <article><span>04</span><div><h3><a href="{{ route('projects.show', 'myaiworkflow') }}">MyAiWorkFlow / 迹序</a></h3><p>把项目记录、待办和今天选定的工作放在一起，方便接着做。</p></div></article>
     </div>
 </section>
-<section class="shell section-block contact-strip"><p class="eyebrow">START WITH A PROBLEM</p><h2>合作或交流，可以从一个具体的工程问题开始。</h2><a class="button button-primary" href="{{ route('articles.index') }}">先看看文章 <span aria-hidden="true">→</span></a></section>
+<section class="shell section-block contact-strip"><p class="eyebrow">交流</p><h2>如果你也在做类似的产品，欢迎聊聊具体遇到的问题。</h2><a class="button button-primary" href="https://github.com/e29denghy">在 GitHub 找到我 <span aria-hidden="true">↗</span></a></section>
 @endsection

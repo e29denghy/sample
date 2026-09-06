@@ -50,3 +50,7 @@ npm run build
 ```
 
 先在预发布目录执行迁移预检和健康检查，再切换 Web 服务器或进程管理器到新发布目录。生产 `.env`、数据库备份、队列进程和 PHP-FPM 重载必须沿用服务器现有的受控配置，不从 Git 覆盖。
+
+## 内容编辑
+
+网页文案和文章素材整理见 [内容编辑第一、二阶段](docs/editorial/README.md)，写作口吻以 [写作原则](docs/editorial/voice.md) 为准。

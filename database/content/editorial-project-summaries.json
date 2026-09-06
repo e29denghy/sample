@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "slug": "interapi",
+        "before": "面向 AI 教学、课程资源、搜索和权限边界的 Laravel 生产系统。",
+        "after": "管理课程和教学资源，提供搜索、播放与使用权限。"
+    },
+    {
+        "id": 2,
+        "slug": "kaiwu",
+        "before": "一个用户所有的跨 Agent Harness 工作台，负责项目、审批、调度和审计。",
+        "after": "集中管理交给 AI 的任务，记录批准、执行结果和失败后的重试。"
+    },
+    {
+        "id": 3,
+        "slug": "myaiworkflow",
+        "before": "把项目记忆、历史证据、待办和每日焦点放进一个可核对的 Laravel/Inertia/Vue 工作流。",
+        "after": "整理项目记录和待办，选出今天要做的几件事，方便下次接着做。"
+    }
+]
