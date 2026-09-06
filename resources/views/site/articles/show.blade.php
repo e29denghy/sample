@@ -4,6 +4,7 @@
 @section('description', $revision->seo_description ?: $revision->excerpt)
 @section('canonical', $article->canonicalUrl())
 @push('head')
+    <style>.article-body [id] { scroll-margin-top: 7rem; }</style>
     @include('shared._seo', ['title' => $revision->seo_title ?: $revision->title, 'description' => $revision->seo_description ?: $revision->excerpt, 'canonical' => $article->canonicalUrl(), 'ogType' => 'article', 'shareImage' => $revision->coverMedia?->url()])
     <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'Article', 'headline' => $revision->title, 'datePublished' => $article->first_published_at?->toIso8601String(), 'dateModified' => $article->published_at?->toIso8601String(), 'url' => $article->canonicalUrl()], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 @endpush
